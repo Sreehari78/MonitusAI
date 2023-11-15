@@ -9,7 +9,7 @@ import requests
 
 patient_number_to_search = 1
 
-# Connect to MongoDB
+# Connect to MongoDBs
 client = MongoClient("mongodb://localhost:27017/")
 db = client[
     "patient_database"
