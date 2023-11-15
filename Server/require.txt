@@ -1,0 +1,5 @@
+pip install pymongo
+pip install gridfs
+pip install PyMuPDF
+pip install openai
+pip install requests
