@@ -1,16 +1,77 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+import pymongo
+from pymongo import MongoClient
+from gridfs import GridFS
+from bson.objectid import ObjectId
+import io
+import fitz  # PyMuPDF
+import openai
+import requests
 
-model_name_or_path = "TheBloke/zephyr-7B-alpha-GPTQ"
-# To use a different branch, change revision
-# For example: revision="gptq-4bit-32g-actorder_True"
-model = AutoModelForCausalLM.from_pretrained(
-    model_name_or_path, device_map="auto", trust_remote_code=False, revision="main"
+##THE AI
+from langchain.document_loaders.csv_loader import CSVLoader
+from langchain.vectorstores import FAISS
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.prompts import PromptTemplate
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import LLMChain
+from dotenv import load_dotenv
+
+import openai
+
+OPENAI_API_KEY = "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"
+# Configure OpenAI
+openai_api_base = ("https://api.openai.com/v1/",)
+openai_api_key = (OPENAI_API_KEY,)
+temperature = (0,)
+engine = "gpt-3.5-turbo"
+
+from langchain.vectorstores import Chroma
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+from langchain.chains import RetrievalQA
+from langchain.document_loaders import TextLoader
+from langchain.document_loaders import PyPDFLoader
+from langchain.document_loaders import DirectoryLoader
+
+from InstructorEmbedding import INSTRUCTOR
+from langchain.embeddings import HuggingFaceInstructEmbeddings
+
+from langchain.embeddings import HuggingFaceBgeEmbeddings
+
+model_name = "BAAI/bge-base-en"
+encode_kwargs = {"normalize_embeddings": True}  # set True to compute cosine similarity
+
+model_norm = HuggingFaceBgeEmbeddings(
+    model_name=model_name,
+    model_kwargs={"device": "cpu"},  # Change to 'cuda' for GPU if desired
+    encode_kwargs=encode_kwargs,
 )
 
-tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
+# 1. Vectorize the sales response CSV data
+loader = CSVLoader(file_path="D:\\Richard\\CyientiFiQ\\MonitusAI\\try1.csv")
+documents = loader.load()
 
-prompt = "Tell me about AI"
-prompt_template = f"""
+embeddings = model_norm
+db = FAISS.from_documents(documents, embeddings)
+
+
+# 2. Function for similarity search
+def retrieve_info(query):
+    similar_response = db.similarity_search(query, k=6)
+
+    page_contents_array = [doc.page_content for doc in similar_response]
+
+    return page_contents_array
+
+
+llm = ChatOpenAI(
+    openai_api_base="https://api.openai.com/v1/",
+    openai_api_key=OPENAI_API_KEY,
+    temperature=0,
+    # engine="gpt-3.5-turbo"
+)
+
+template = """
 You are an intelligent chatbot that predicts adverse drug reactions.
 I will provide you a prescribed drugs, patient's age, sex, weight, the previous medical conditions, possible drug drug interactions which may or may not have dosage all as a single prompt also a list of known adverse reactions.
 You will accurately predict what the list of possible adverse drug reactions.
@@ -28,32 +89,25 @@ list of adverse drug reactions not medical conditions with a short description w
 risk level assessment as H for high and M for Medium and L for Low for the prescription and make that rating the last character in the output after a comma
 """
 
-print("\n\n*** Generate:")
+prompt = PromptTemplate(template=template, input_variables=["input", "output"])
 
-input_ids = tokenizer(prompt_template, return_tensors="pt").input_ids.cuda()
-output = model.generate(
-    inputs=input_ids,
-    temperature=0.7,
-    do_sample=True,
-    top_p=0.95,
-    top_k=40,
-    max_new_tokens=512,
-)
-print(tokenizer.decode(output[0]))
+# Create an LLMChain instance with the prompt and ChatOpenAI instance
+chain = LLMChain(prompt=prompt, llm=llm)
 
-# Inference can also be done using transformers' pipeline
 
-print("*** Pipeline:")
-pipe = pipeline(
-    "text-generation",
-    model=model,
-    tokenizer=tokenizer,
-    max_new_tokens=512,
-    do_sample=True,
-    temperature=0.7,
-    top_p=0.95,
-    top_k=40,
-    repetition_penalty=1.1,
-)
+# 4. Retrieval augmented generation
+def generate_response(input):
+    output = retrieve_info(input)
+    response = chain.run(input=input, output=output)
+    return response
 
-print(pipe(prompt_template)[0]["generated_text"])
+
+input_text = "35 year old female is described 3mg ofloxaxin for 5 days for a urinary tract infection. She has no other medical conditions and is not taking any other medications. She has no known allergies"
+
+# aimodel()
+
+print("Input Text:", input_text)
+output = retrieve_info(input_text)
+result = chain.run(input=input_text, output=output)  # Fixed input parameter
+
+print("Generated Response:", result)
