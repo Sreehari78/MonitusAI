@@ -233,14 +233,23 @@ def retrieve_info(query):
     return page_contents_array
 
 
-llm = ChatOpenAI(
-    openai_api_base="https://api.openai.com/v1/",
-    openai_api_key=OPENAI_API_KEY,
-    temperature=0,
-    # engine="gpt-3.5-turbo"
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+
+model_name_or_path = "TheBloke/zephyr-7B-alpha-GPTQ"
+# To use a different branch, change revision
+# For example: revision="gptq-4bit-32g-actorder_True"
+model = AutoModelForCausalLM.from_pretrained(
+    model_name_or_path, device_map="auto", trust_remote_code=False, revision="main"
 )
 
-template = """
+tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
+
+
+input_text = "35 year old female is described 3mg ofloxaxin"
+output = retrieve_info(input_text)
+input = "35 year old female is described 3mg ofloxaxin"
+
+prompt_template = f"""
 You are an intelligent chatbot that predicts adverse drug reactions.
 I will provide you a prescribed drugs, patient's age, sex, weight, the previous medical conditions, possible drug drug interactions which may or may not have dosage all as a single prompt also a list of known adverse reactions.
 You will accurately predict what the list of possible adverse drug reactions.
@@ -258,25 +267,26 @@ list of adverse drug reactions not medical conditions with a short description w
 risk level assessment as H for high and M for Medium and L for Low for the prescription and make that rating the last character in the output after a comma
 """
 
-prompt = PromptTemplate(template=template, input_variables=["input", "output"])
-
-# Create an LLMChain instance with the prompt and ChatOpenAI instance
-chain = LLMChain(prompt=prompt, llm=llm)
+print("\n\n*** Generate:")
 
 
 # 4. Retrieval augmented generation
-def generate_response(input):
-    output = retrieve_info(input)
-    response = chain.run(input=input, output=output)
-    return response
-
-
-input_text = result
+# def generate_response(input):
+#     output = retrieve_info(input)
+#     response = chain.run(input=input, output=output)
+#     return response
 
 # aimodel()
 
 print("Input Text:", input_text)
-output = retrieve_info(input_text)
-result = chain.run(input=input_text, output=output)  # Fixed input parameter
 
-print("Generated Response:", result)
+input_ids = tokenizer(prompt_template, return_tensors="pt").input_ids.cuda()
+reply = model.generate(
+    inputs=input_ids,
+    temperature=0.7,
+    do_sample=True,
+    top_p=0.95,
+    top_k=40,
+    max_new_tokens=512,
+)
+print(tokenizer.decode(reply[0]))
