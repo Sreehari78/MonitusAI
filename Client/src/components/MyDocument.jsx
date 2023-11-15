@@ -29,6 +29,7 @@ const MyDocument = (props) => {
 
   const handleSubmitPDF = (e) => {
     e.preventDefault();
+    localStorage.setItem("pdfData", pdfFile);
     if (pdfFile) setViewPdf(pdfFile);
     else setViewPdf(null);
   };

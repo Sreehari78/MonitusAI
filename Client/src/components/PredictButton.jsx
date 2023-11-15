@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-const PredictButton = () => {
+const ADRButton = () => {
   return (
     <div>
       <Button
@@ -24,4 +24,4 @@ const PredictButton = () => {
   );
 };
 
-export default PredictButton;
+export default ADRButton;

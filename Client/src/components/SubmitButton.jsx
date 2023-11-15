@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-const PredictButton = () => {
+const SubmitButton = () => {
   return (
     <div>
       <Button
@@ -17,11 +17,9 @@ const PredictButton = () => {
           paddingTop: "0.75rem",
           paddingBottom: "0.75rem",
           color: "#F3F8FE",
-        }}>
-        Upload
-      </Button>
+        }}></Button>
     </div>
   );
 };
 
-export default PredictButton;
+export default SubmitButton;

@@ -82,7 +82,7 @@ const page = () => {
   return (
     <div className='flex'>
       <SideBar activeButtonNumber={0} />
-      <div className='w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col pt-48 px-40 gap-12'>
+      <div className='w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col pt-40 px-40 gap-12'>
         <Dropbox />
         <TextareaAutosize
           maxRows={10}
