@@ -8,7 +8,7 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { Input } from "@mui/material";
 
-const MyDocument = (props) => {
+const MyDocument = () => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const fileType = ["application/pdf"];
   const [pdfFile, setPdfFile] = React.useState(null);

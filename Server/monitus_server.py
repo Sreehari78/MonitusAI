@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 import db_operations as my_db
+from flask_cors import CORS
+
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route("/insert_user", methods=["POST"])
 def add_user():
@@ -25,21 +27,6 @@ def add_medicine():
 
     return "Medicine added successfully!"
 
-@app.route("/insert_patient", methods=["POST"])
-def add_patient():
-    my_db.get_pdf(my_db.connect_to_mongodb())
-    my_db.insert_patient(
-        my_db.connect_to_mongodb(),
-        request.form["name"],
-        my_db.get_pdf(my_db.connect_to_mongodb()),
-        request.form["possible_adrs"],
-        request.form["observed_adrs"],
-        request.form["patient_referred_doctors"],
-        request.form["patient_referred_nurses"],
-        request.form["patient_prescribed_medicines"],
-    )
-
-    return "Patient added successfully!"
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -49,9 +36,9 @@ def login():
     # Check if the user is valid
     user = my_db.get_user(my_db.connect_to_mongodb(),username, password)
     if user:
-        return f"Welcome, {username}!"
+        return jsonify({f"Welcome, {username}!"})
     else:
-        return "Invalid credentials. Please try again."
+        return jsonify({"Invalid credentials. Please try again."})
 
 
 @app.route("/get_medicines", methods=["POST"])
@@ -62,7 +49,7 @@ def view_medicines(med_name):
     if medicine:
         return jsonify(medicine)
     else:
-        return jsonify({"error": "Medicine not found"})
+        return jsonify({"error": "Medicine not found"}), 400
 
 @app.route('/get_patient', methods=['POST'])
 def view_patient(patient_id):
@@ -72,7 +59,25 @@ def view_patient(patient_id):
     if patient:
         return jsonify(patient)
     else:
-        return jsonify({"error": "Patient not found"})
+        return jsonify({"error": "Patient not found"}), 400
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    try:
+        data = request.get_json()
+        pdf_data = data.get('pdfData')
+        name = data.get('name')
+
+        #add patient details to database
+        my_db.insert_patient(
+        my_db.connect_to_mongodb(),
+        name,
+        pdf_data,
+        [],[],[],[],[]
+    )
+        return jsonify({'message': 'Upload successful'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 if __name__ == "__main__":
