@@ -8,8 +8,7 @@ CORS(app)
 
 @app.route("/insert_user", methods=["POST"])
 def add_user():
-    my_db.insert_user(
-        my_db.connect_to_mongodb(),
+    my_db.insert_user(    
         request.form["username"],
         request.form["password"],
         request.form["role"],
@@ -20,7 +19,6 @@ def add_user():
 @app.route("/insert_medicine", methods=["POST"])
 def add_medicine():
     my_db.insert_medicine(
-        my_db.connect_to_mongodb(),
         request.form["med_name"],
         request.form["med_side_effects"],
     )
@@ -34,7 +32,7 @@ def login():
     password = request.form["password"]
 
     # Check if the user is valid
-    user = my_db.get_user(my_db.connect_to_mongodb(),username, password)
+    user = my_db.get_user(username, password)
     if user:
         return jsonify({f"Welcome, {username}!"})
     else:
@@ -43,7 +41,7 @@ def login():
 
 @app.route("/get_medicines", methods=["POST"])
 def view_medicines(med_name):
-    medicine = my_db.get_medicine(my_db.connect_to_mongodb(), med_name)
+    medicine = my_db.get_medicine( med_name)
 
     # Check if the medicine is valid
     if medicine:
@@ -53,7 +51,7 @@ def view_medicines(med_name):
 
 @app.route('/get_patient', methods=['POST'])
 def view_patient(patient_id):
-    patient = my_db.get_patient(my_db.connect_to_mongodb(), patient_id)
+    patient = my_db.get_patient( patient_id)
 
     # Check if the patient is valid
     if patient:
@@ -65,20 +63,31 @@ def view_patient(patient_id):
 def upload_file():
     try:
         data = request.get_json()
+        print(data)
         pdf_data = data.get('pdfData')
         name = data.get('name')
 
         #add patient details to database
         my_db.insert_patient(
-        my_db.connect_to_mongodb(),
         name,
         pdf_data,
         [],[],[],[],[]
     )
         return jsonify({'message': 'Upload successful'}), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(e)})
 
+
+@app.route('/get_all_patient', methods=['POST'])
+def get_all_patient():
+    all_patient_data = my_db.get_all_patients()
+    return jsonify({"names" : all_patient_data})
+
+@app.route('/get_prediction', methods=['POST'])
+def get_prediction():
+    data = request.get_json()
+    print(data)
+    return jsonify({'message': 'Upload successful'}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)

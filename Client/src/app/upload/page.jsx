@@ -1,37 +1,43 @@
 "use client";
 
 import SideBar from "@/components/SideBar";
-
 import React from "react";
 import { Button } from "@mui/material";
 import MyDocument from "@/components/MyDocument";
 import { TextField } from "@mui/material";
 
 const page = () => {
-  const [name, setName] = React.useState("");
+  // State variable for patient name and stored PDF data
+  const [PatientName, setPatientName] = React.useState("");
+  const [storedPdfData, setStoredPdfData] = React.useState(null);
+
+  // Callback function to set stored PDF data
+  function CallBack(childData) {
+    setStoredPdfData(childData);
+  }
+
+  // Handler for patient name input
   const handleName = (event) => {
-    setName(event.target.value);
-    console.log(name);
+    setPatientName(event.target.value);
   };
 
+  // Handler for upload action
   const handleUpload = async () => {
-    const storedPdfData = localStorage.getItem("pdfData");
+    // Check if there is stored PDF data
     if (storedPdfData) {
       try {
+        // Send a POST request to the server with the PDF data and patient name
         const response = await fetch("http://localhost:5000/upload", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            pdfData: storedPdfData,
-            name: name,
-          }),
+          body: JSON.stringify({ pdfData: storedPdfData, name: PatientName }),
         });
 
+        // Check if the request was successful
         if (response.ok) {
-          console.log("Upload successful");
-          // Additional logic after successful upload if needed
+          console.log(response);
         } else {
           console.error("Failed to upload");
         }
@@ -49,7 +55,7 @@ const page = () => {
       <div className='w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col px-40 py-40 gap-20'>
         <TextField placeholder='Enter Name' onChange={handleName} />
         <div className='flex justify-end w-[50vw]'>
-          <MyDocument url='https://pdfobject.com/pdf/sample.pdf' />
+          <MyDocument handleCallback={CallBack} />
         </div>
         <Button
           variant='contained'

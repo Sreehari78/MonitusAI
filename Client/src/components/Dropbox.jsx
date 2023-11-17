@@ -1,114 +1,53 @@
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Autocomplete from "@mui/material/Autocomplete";
+import React, { useEffect, useState } from "react";
 
-const Patients = [
-  "Akhil Binoy Vettical",
-  "Pranav Sathish",
-  "Sreehari S",
-  "Richard Jopseph",
-  "Aiden Smith",
-  "Sophia Johnson",
-  "Liam Brown",
-  "Olivia Davis",
-  "Lucas Miller",
-  "Emma Wilson",
-  "Jackson Moore",
-  "Amelia Anderson",
-  "Carter Taylor",
-  "Ava Thomas",
-  "Ethan Harris",
-  "Chloe White",
-  "Logan Martin",
-  "Mia Martinez",
-  "Jack Thompson",
-  "Harper Garcia",
-  "Caleb Robinson",
-  "Ella Martinez",
-  "Sebastian Clark",
-  "Avery Lewis",
-  "Benjamin Hall",
-  "Lily Rodriguez",
-  "Grayson Turner",
-  "Addison Scott",
-  "Matthew Green",
-  "Abigail Lewis",
-  "Leo Young",
-  "Sofia King",
-  "David Turner",
-  "Scarlett Evans",
-  "Gabriel Baker",
-  "Aria Lee",
-  "Samuel Nelson",
-  "Aurora Hall",
-  "Wyatt Harris",
-  "Emily Stewart",
-  "Isaac Moore",
-  "Hannah Taylor",
-  "Owen Perez",
-  "Evelyn Martinez",
-  "Nathan Smith",
-  "Aubrey Gonzalez",
-  "Henry Davis",
-  "Grace Wright",
-  "Julian Harris",
-  "Madison Clark",
-  "Levi Turner",
-  "Zoe Hill",
-  "Jameson Wilson",
-  "Nova Turner",
-  "Lincoln Moore",
-  "Brooklyn White",
-  "Nicholas Nelson",
-  "Samantha Thompson",
-  "Elijah Harris",
-  "Layla Garcia",
-  "Connor Hall",
-  "Ellie King",
-  "Joseph Moore",
-  "Paisley Baker",
-  "Hudson Turner",
-  "Maya Scott",
-  "Cameron Hill",
-  "Alice Robinson",
-  "Ezra Harris",
-  "Penelope Martinez",
-  "Hunter Turner",
-  "Stella Adams",
-  "Christian Lewis",
-  "Zoey Young",
-  "Colton Robinson",
-  "Lillian Turner",
-  "Austin Gonzalez",
-  "Violet Clark",
-  "Jordan Martinez",
-  "Ruby Turner",
-  "Dylan Wright",
-  "Alexis Harris",
-  "Adrian Turner",
-  "Autumn King",
-  "Cole Nelson",
-  "Natalie Hall",
-  "Jeremiah Smith",
-  "Anna Thompson",
-  "Brayden Davis",
-  "Lucy White",
-  "Juliana Harris",
-  "Mason Turner",
-  "Hailey Baker",
-  "Leo Martinez",
-];
+export default function Dropbox(props) {
+  // State variable for the list of patients
+  const [patients, setPatients] = useState([]);
 
-export default function Dropbox({ onDropdownChange }) {
-  const handleDropdownChange = (event, value) => {
-    onDropdownChange(value);
+  // Handler for dropdown change
+  const handleDropdownChange = (e, value) => {
+    // Get the selected patient data from the dropdown
+    const selectedPatientData = e.target.getAttribute("data-option-index");
+    // Call the parent component's callback function with the selected patient data
+    props.handleCallback(patients[selectedPatientData]);
   };
+
+  // Function to fetch patients
+  const fetchPatients = React.useCallback(async () => {
+    try {
+      // Send a POST request to the server to get all patients
+      const response = await fetch("http://localhost:5000/get_all_patient", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // Parse the response as JSON
+      const result = await response.json();
+      // Set the patients state variable to the names of the patients
+      setPatients(result.names);
+    } catch (error) {
+      // Log an error message if there is an error fetching patient details
+      setError("Error fetching patient details");
+      console.error("Error fetching patient details:", error);
+    }
+  }, []);
+
+  // Effect hook to fetch patients on component mount
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
   return (
     <div className='flex gap-3'>
       <Autocomplete
         disablePortal
-        options={Patients}
-        inputcomponent={OutlinedInput}
+        options={patients}
+        inputComponent={OutlinedInput}
         sx={{
           borderRadius: "12px",
           width: { sm: 100, md: 200, lg: 250, xl: 350 },
@@ -125,7 +64,6 @@ export default function Dropbox({ onDropdownChange }) {
           />
         )}
       />
-      <div className='flex text-red-500'>Image Here</div>
     </div>
   );
 }

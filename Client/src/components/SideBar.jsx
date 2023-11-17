@@ -70,19 +70,6 @@ const SideBar = (props) => {
             : ((buttonColorAttributes[0] = "#DAF0F0"),
               (buttonColorAttributes[1] = "#6E7191")))}
           color={buttonColorAttributes[0]}
-          icon={faCalendar}
-          title='Reminders'
-          link='/reminders'
-          textColor={buttonColorAttributes[1]}
-        />
-        <SideButton
-          type='contained'
-          {...(activeButton == 4
-            ? ((buttonColorAttributes[0] = "#008081"),
-              (buttonColorAttributes[1] = "#DAF0F0"))
-            : ((buttonColorAttributes[0] = "#DAF0F0"),
-              (buttonColorAttributes[1] = "#6E7191")))}
-          color={buttonColorAttributes[0]}
           icon={faUpload}
           title='Upload EHR'
           link='/upload'
@@ -92,7 +79,7 @@ const SideBar = (props) => {
       <div className='mb-16 mx-8'>
         <SideButton
           type='contained'
-          {...(activeButton == 5
+          {...(activeButton == 4
             ? ((buttonColorAttributes[0] = "#008081"),
               (buttonColorAttributes[1] = "#DAF0F0"))
             : ((buttonColorAttributes[0] = "#DAF0F0"),

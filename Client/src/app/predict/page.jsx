@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import Dropbox from "@/components/Dropbox";
-import PredictButton from "@/components/PredictButton";
+import { Button } from "@mui/material";
 import SideBar from "@/components/SideBar";
 import Fab from "@mui/material/Fab";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
@@ -15,13 +15,19 @@ import {
 import ReactionCard from "@/components/ReactionCard";
 
 const page = () => {
+  // State variables for listening status, note content, mute status, microphone and selected patient
   const [isListening, setIsListening] = React.useState(false);
   const [note, setNote] = React.useState("");
-  const [isMuted, setIsMuted] = React.useState(false);
-  useEffect(() => {}, [isMuted]);
-
+  const [isMuted, setIsMuted] = React.useState(true);
   const [mic, setMic] = React.useState(null);
+  const [selectedPatient, setSelectedPatient] = React.useState("");
 
+  // Callback function to set the selected patient
+  function CallBack(childData) {
+    setSelectedPatient(childData);
+  }
+
+  // Initialize SpeechRecognition on component mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const SpeechRecognition =
@@ -39,6 +45,7 @@ const page = () => {
     }
   }, []);
 
+  // Handle microphone listening
   const handleListening = () => {
     setIsListening(!isListening);
     setIsMuted(!isMuted);
@@ -59,6 +66,7 @@ const page = () => {
       console.log("Mics on");
     };
 
+    // Handle speech recognition results
     mic.onresult = (event) => {
       const transcript = Array.from(event.results)
         .map((result) => result[0])
@@ -72,9 +80,33 @@ const page = () => {
     };
   };
 
+  // Handle prediction
+  const handlePredict = async () => {
+    if (selectedPatient === "" || note === "") return;
+    try {
+      const response = await fetch("http://localhost:5000/get_prediction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: selectedPatient, prescription: note }),
+      });
+
+      if (response.ok) {
+        console.log(response);
+      } else {
+        console.error("Failed to upload");
+      }
+    } catch (error) {
+      console.error("Error during upload:", error);
+    }
+  };
+
+  // State variable and ref for carousel width
   const [leftWidth, setLeftWidth] = React.useState(0);
   const carsousel = React.useRef();
 
+  // Update leftWidth on component mount
   useEffect(() => {
     setLeftWidth(carsousel.current.scrollWidth - carsousel.current.offsetWidth);
   }, []);
@@ -83,12 +115,14 @@ const page = () => {
     <div className='flex'>
       <SideBar activeButtonNumber={0} />
       <div className='w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col pt-40 px-40 gap-12'>
-        <Dropbox />
+        <Dropbox handleCallback={CallBack} />
         <TextareaAutosize
           maxRows={10}
           minRows={8}
           value={note}
-          onChange={(e) => setNote(e.target.value)}
+          onChange={(e) => {
+            setNote(e.target.value);
+          }}
           onClick={(e) => setNote(e.target.value)}
           style={{
             color: "#6E7191",
@@ -110,7 +144,21 @@ const page = () => {
               style={{ fontSize: "20px", color: "#F3F8FE" }}
             />
           </Fab>
-          <PredictButton />
+          <Button
+            variant='contained'
+            disableElevation={true}
+            onClick={handlePredict}
+            style={{
+              textAlign: "center",
+              backgroundColor: "#008081",
+              borderRadius: "12px",
+              width: "8rem",
+              paddingTop: "0.75rem",
+              paddingBottom: "0.75rem",
+              color: "#F3F8FE",
+            }}>
+            Predict
+          </Button>
         </div>
 
         <div className='flex'>
