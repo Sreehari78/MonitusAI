@@ -1,10 +1,11 @@
 "use client";
 
 import SideBar from "@/components/SideBar";
-import React from "react";
+import React, { use } from "react";
 import { Button } from "@mui/material";
 import MyDocument from "@/components/MyDocument";
 import { TextField } from "@mui/material";
+import ConvertApi from "convertapi-js";
 
 const page = () => {
   // State variable for patient name and stored PDF data
@@ -45,7 +46,7 @@ const page = () => {
         console.error("Error during upload:", error);
       }
     } else {
-      console.error("No PDF data found in localStorage.");
+      console.error("No PDF data found.");
     }
   };
 

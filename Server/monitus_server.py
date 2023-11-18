@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 import db_operations as my_db
 from flask_cors import CORS
-
+from AIServer.mainAI import predict
+import urllib3
+import re
 
 app = Flask(__name__)
 CORS(app)
@@ -63,16 +65,32 @@ def view_patient(patient_id):
 def upload_file():
     try:
         data = request.get_json()
-        print(data)
+        print( data)
         pdf_data = data.get('pdfData')
+        url = pdf_data['Url']
+        print(url)
         name = data.get('name')
+        print(name)
+        
+        import wget
+        filename = wget.download(url)
 
-        #add patient details to database
+        print("Downloaded file:", filename)
+        print("URL:", url)
+
+        # Open the file with the 'utf-8' encoding
+        with open(filename, "r", encoding="utf-8") as file1:
+            # Read and print the contents of the file
+            out=file1.read()
+            pdf_file=re.sub(r'\n\s*\n', '\n', out)
+        print(pdf_file)
+        print("hello")
         my_db.insert_patient(
         name,
-        pdf_data,
+        pdf_file,
         [],[],[],[],[]
     )
+
         return jsonify({'message': 'Upload successful'}), 200
     except Exception as e:
         return jsonify({'error': str(e)})
@@ -86,7 +104,9 @@ def get_all_patient():
 @app.route('/get_prediction', methods=['POST'])
 def get_prediction():
     data = request.get_json()
-    print(data)
+    name = data.get('name')
+    ehr = my_db.get_patient_ehr(name)
+    predict(ehr,data.get('prescription'))
     return jsonify({'message': 'Upload successful'}), 200
 
 if __name__ == "__main__":
