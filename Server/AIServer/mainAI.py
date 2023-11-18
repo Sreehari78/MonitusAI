@@ -19,13 +19,15 @@ def predict(ehr,prescription):
 
     input_list=generate_responses(interaction_result, faiss_vectorizer)
     def parse_item(item):
-        drug_name, interactions, side_effects, risk_level = item.split("||\n")
+        drug_name, interactions, side_effects, risk_level = item.split("||")
+
         first_five_items = side_effects.split(",")[:5]
 
         # Join the items back into a string if needed
         side_effects = ",".join(first_five_items)
         risk_color_mapping = {
             "L": "#90EE90",
+            "none": "#90EE90",
             "M": "#FFF39A",
             "H": "#FF7F7F"
         }
