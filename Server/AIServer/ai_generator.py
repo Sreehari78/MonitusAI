@@ -80,8 +80,8 @@ def generate_responses(input_text, faiss_vectorizer):
         print("\n\nGenerated Response: " + result + "\n")
         generatedresponses.append(result)
         print(generatedresponses)
-        # 2. Function for similarity search
 
+    #Function for similarity search
     def retrieve_info(query):
         similar_response = faiss_vectorizer.similarity_search(query, k=10)
         page_contents_array = [doc.page_content for doc in similar_response]
@@ -89,4 +89,5 @@ def generate_responses(input_text, faiss_vectorizer):
 
     with ThreadPoolExecutor() as executor:
         executor.map(generate_response_for_medicine, input_text)
+        
     return generatedresponses
