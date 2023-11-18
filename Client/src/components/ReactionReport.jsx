@@ -1,4 +1,5 @@
 import React from "react";
+import { Card, CardContent, Typography } from "@mui/material";
 
 const ReactionReport = () => {
   return (
@@ -6,19 +7,26 @@ const ReactionReport = () => {
       <Card
         className="hover:scale-110 hover:transition hover:duration-500"
         sx={{
-          width: 250,
-          height: 250,
+          width: 150,
+          height: 50,
           borderRadius: 4,
         }}
       >
         <CardContent sx={{ color: "black" }}>
-          <div>
-            <Typography variant="body2" color="text.secondary">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-              excepturi placeat nostrum cupiditate repudiandae aut, iusto
-              corporis eius explicabo impedit esse aliquam unde temporibus quo
-              neque incidunt corrupti iure debitis. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit.
+          <div className="flex justify-between">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              fontSize={"12px"}
+            >
+              Paracetamol
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              fontSize={"12px"}
+            >
+              Check
             </Typography>
           </div>
         </CardContent>

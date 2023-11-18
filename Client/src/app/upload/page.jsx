@@ -54,7 +54,7 @@ const page = () => {
       <SideBar activeButtonNumber={3} />
       <div className="w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col px-40 py-40 gap-20">
         <TextField
-          placeholder="Enter Name"
+          placeholder="Enter Patient Name"
           onChange={handleName}
           color="success"
           style={{
