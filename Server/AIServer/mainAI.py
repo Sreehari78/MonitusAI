@@ -1,4 +1,5 @@
 # main.py
+from sympy import content
 from AIServer.summarizer import summarize_pdf_content
 from AIServer.drug_interactions import get_drug_interactions
 from AIServer.ai_generator import generate_responses
@@ -9,9 +10,12 @@ import base64
 import json
 
 def predict(ehr,prescription):
+    print(prescription)
     print(ehr)
-    summary_text = summarize_pdf_content(ehr+prescription)
-    print(summary_text)
+    content = prescription+" is prescribed as well as"+ehr
+    print("CONTENT IS"+content)
+    summary_text = summarize_pdf_content(content)
+    print("Summary Text"+summary_text)
     interaction_result = get_drug_interactions(summary_text)
     print(interaction_result)
     # Load the serialized faiss_vectorizer

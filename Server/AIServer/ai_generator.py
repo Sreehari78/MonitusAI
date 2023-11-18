@@ -131,10 +131,8 @@ List of Adverse Drug Reactions in Similar Scenarios:
 {output}
 
 Output Format (in under 30 words):
-Drug Name only||
-Short description of possible interactions and allergies in a sentence||
-List of up to 10 adverse drug reactions||
-Risk level as H for high, M for Medium, and L for Low only (e.g., Aspirin||No interactions||Headache||M)
+Drug Name only||Short description of possible interactions and allergies in a sentence||List of up to 10 adverse drug reactions||Risk level as H for high, M for Medium, and L for Low only (e.g., Aspirin||No interactions||Headache||M)
+The entire output should be a single sentence with no line breaks or extra spaces.
 """
 
 prompt = PromptTemplate(template=template, input_variables=["input", "output"])

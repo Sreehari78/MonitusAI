@@ -8,40 +8,36 @@ from dotenv import load_dotenv
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
 
-model_name_or_path = "TheBloke/zephyr-7B-alpha-GPTQ"
-model = AutoModelForCausalLM.from_pretrained(
-    model_name_or_path,
-    device_map="auto",
-    trust_remote_code=False,
-    revision="main",
-)
 
-tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 
 
 def generate_responses(input_text, faiss_vectorizer):
     generatedresponses = []
-
+    print("Input Text:", input_text)
     def generate_response_for_medicine(input_text):
+        model_name_or_path = "TheBloke/Mistral-7B-Instruct-v0.1-GPTQ"
+        model = AutoModelForCausalLM.from_pretrained(
+        model_name_or_path,
+        device_map="auto",
+        trust_remote_code=False,
+        revision="main",
+        )
+        
+        print("Input Text:", input_text)
+        tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
         output = retrieve_info(input_text)
-
+        print(output)
         prompt_template = """
-        You are an intelligent chatbot that predicts adverse drug reactions.
-        I will provide you a prescribed drugs, patient's age, sex, weight, the previous medical conditions, possible drug drug interactions which may or may not have dosage all as a single prompt also a list of known adverse reactions.
-        You will accurately predict what the list of possible adverse drug reactions.
-        1/ Response should be very similar or even identical to the past drug reactions, in terms of length, tone of voice, logical arguments, and other details
-
-        2/ If the prescription is not relevant enough, then try to mimic the style of possible adverse drug reaction
-
-        Below is a list of prompts with details of the drug prescribed,patient information like gender and past medical history,and possible drug drug interactions that may occur:
+        You are an intelligent chatbot that predicts adverse drug reactions. Given a prescription and patient details, predict possible adverse reactions.
+        Prescription and Patient Information:
         {input}
-        Here is a list of adverse drug reactions that occurred in similar scenarios:
+
+        List of Adverse Drug Reactions in Similar Scenarios:
         {output}
-        Give the output in the following format in under 30 words just give the values without any tags:
-        Drug Name only||
-        Short description of possible interactions with any other drugs if any or any allergies to the medicine||
-        list of adverse drug reactions not medical conditions||
-        risk level assessment as H for high and M for Medium and L for Low for the prescription and make that rating the last character in the output after a comma
+
+        Output Format (in under 30 words):
+        Drug Name only||Short description of possible interactions and allergies in a sentence||List of up to 10 adverse drug reactions||Risk level as H for high, M for Medium, and L for Low only (e.g., Aspirin||No interactions||Headache||M)
+        The entire output should be a single sentence with no line breaks or extra spaces.
         """
 
         input_ids = tokenizer(prompt_template, return_tensors="pt").input_ids.cuda()
@@ -52,7 +48,10 @@ def generate_responses(input_text, faiss_vectorizer):
             top_p=0.95,
             top_k=40,
             max_new_tokens=512,
+            repetition_penalty=1.1,
+
         )
+
         result = tokenizer.decode(reply[0])
         generatedresponses.append(result)
         print("\n\nGenerated Response: " + result + "\n")
@@ -63,12 +62,12 @@ def generate_responses(input_text, faiss_vectorizer):
         page_contents_array = [doc.page_content for doc in similar_response]
         return page_contents_array
 
-    # for medicine in input_text:
-    #     generate_response_for_medicine(medicine)
-
+    for medicine in input_text:
+        generate_response_for_medicine(medicine)
+    generate_response_for_medicine(input_text)
     return generatedresponses
 
-input_text = "50 year old man prescribed 500mg paracetamol for 3 days"
+input_text = ["50 year old man prescribed 500mg paracetamol for 3 days"]
 from vectorizer import load_faiss_vectorizer
 faiss_vectorizer = load_faiss_vectorizer()
 generate_responses(input_text, faiss_vectorizer)

@@ -94,14 +94,14 @@ const page = () => {
         body: JSON.stringify({ name: selectedPatient, prescription: note }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-        setRecievedData(data);
-        console.log(recievedData);
-      } else {
-        console.error("Failed to upload");
-      }
+      // Parse the response as JSON
+      const jsonData = await response.json();
+      const data = jsonData.result;
+      // Set the patients state variable to the names of  the patients
+      setRecievedData(data);
+      console.log(recievedData);
+      console.log(recievedData[0]);
+      console.log(data[0].DrugName);
     } catch (error) {
       console.error("Error during upload:", error);
     }
@@ -113,7 +113,9 @@ const page = () => {
 
   // Update leftWidth on component mount
   useEffect(() => {
-    setLeftWidth(carsousel.current.scrollWidth - carsousel.current.offsetWidth);
+    setLeftWidth(
+      carsousel.current.scrollWidth * 1.5 - carsousel.current.offsetWidth
+    );
   }, []);
 
   return (
@@ -176,7 +178,14 @@ const page = () => {
               drag='x'
               dragConstraints={{ right: leftWidth, left: -leftWidth }}
               className='flex gap-16 py-4'>
-              <ReactionCard />
+              {recievedData.map((adr, item) => (
+                <ReactionCard
+                  key={item}
+                  drugName={adr.DrugName}
+                  possibleInteractions={adr.PossibleInteractions}
+                  sideEffects={adr.SideEffects}
+                />
+              ))}
             </m.div>
           </div>
         </div>

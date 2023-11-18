@@ -106,13 +106,11 @@ def get_all_patient():
 def get_prediction():
     data = request.get_json()
     name = data.get('name')
+    print(data.get('prescription'))
     ehr = my_db.get_patient_ehr(name)
     out=predict(ehr,data.get('prescription'))
-
-    # Return the result as JSON
-    output_json = json.dumps(out, indent=2)
-
-    return ({"result": output_json})
+    print(jsonify(result=out))
+    return jsonify({"result" : out})
 
 if __name__ == "__main__":
     app.run(debug=True)
