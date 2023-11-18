@@ -24,6 +24,7 @@ def add_medicine():
     my_db.insert_medicine(
         request.form["med_name"],
         request.form["med_side_effects"],
+        request.form["count"],
     )
 
     return "Medicine added successfully!"
@@ -107,7 +108,7 @@ def get_prediction():
     data = request.get_json()
     name = data.get('name')
     ehr = my_db.get_patient_ehr(name)
-    out=predict(ehr,data.get('prescription'))
+    out=predict(name,ehr,data.get('prescription'))
 
     # Return the result as JSON
     output_json = json.dumps(out, indent=2)
