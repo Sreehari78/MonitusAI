@@ -38,7 +38,7 @@ Below is a list of prompts with details of the drug prescribed,patient informati
 {input}
 Here is a list of adverse drug reactions that occurred in similar scenarios:
 {output}
-Give the output in the following format in under 50 words just give the values without any tags:
+Give the output in the following format in under 30 words just give the values without any tags:
 Drug Name only||
 Short description of possible interactions with any other drugs if any or any allergies to the medicine||
 list of not more than 10 adverse drug reactions not medical conditions||

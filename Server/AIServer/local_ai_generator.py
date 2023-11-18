@@ -10,6 +10,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 
 
 def generate_responses(input_text, faiss_vectorizer):
+    generatedresponses = []
+
     def generate_response_for_medicine(input_text):
         output = retrieve_info(input_text)
 
@@ -51,11 +53,11 @@ def generate_responses(input_text, faiss_vectorizer):
             top_k=40,
             max_new_tokens=512,
         )
-        print(tokenizer.decode(reply[0]))
+        result = tokenizer.decode(reply[0])
+        generatedresponses.append(result)
         print("\n\nGenerated Response: " + result + "\n")
 
-        # 2. Function for similarity search
-
+    # Function for similarity search
     def retrieve_info(query):
         similar_response = faiss_vectorizer.similarity_search(query, k=10)
         page_contents_array = [doc.page_content for doc in similar_response]
@@ -63,3 +65,4 @@ def generate_responses(input_text, faiss_vectorizer):
 
     with ThreadPoolExecutor() as executor:
         executor.map(generate_response_for_medicine, input_text)
+    return generatedresponses
