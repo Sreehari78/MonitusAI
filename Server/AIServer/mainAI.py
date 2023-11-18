@@ -43,9 +43,9 @@ def predict(ehr,prescription):
     output_list = [parse_item(item) for item in input_list]
 
     # Convert the list of dictionaries to JSON format
-    output_json = json.dumps(output_list, indent=2)
+    # output_json = json.dumps(output_list, indent=2)
 
     # Print or save the JSON
-    print(output_json)
-    return output_json
+    print(output_list)
+    return output_list
 

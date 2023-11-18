@@ -96,8 +96,9 @@ const page = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setRecievedData(data);
         console.log(data);
+        setRecievedData(data);
+        console.log(recievedData);
       } else {
         console.error("Failed to upload");
       }

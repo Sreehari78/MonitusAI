@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, jsonify
 import db_operations as my_db
 from flask_cors import CORS
@@ -109,7 +110,9 @@ def get_prediction():
     out=predict(ehr,data.get('prescription'))
 
     # Return the result as JSON
-    return jsonify({"result": out})
+    output_json = json.dumps(out, indent=2)
+
+    return ({"result": output_json})
 
 if __name__ == "__main__":
     app.run(debug=True)
