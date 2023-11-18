@@ -1,81 +1,41 @@
-from pdf_processor import get_pdf_content
-from summarizer import summarize_pdf_content
-from drug_interactions import get_drug_interactions
-from ai_generator import generate_responses
-from vectorizer import load_faiss_vectorizer
+from pymongo import MongoClient
 
-pdf_content = """
-Personal Information
--------------------
-First Name: Stuart
-Last Name: Little
-Date of Birth: 17/05/99
-Patient Identifier: 123
-Gender: Male
-Blood Type: O+
+def update_or_create_drug(db, drug_info):
+    collection = db['medicines']
 
-Address
--------
-123 Oceanfront Drive
-Honolulu, Hawaii
-Zip Code: 6905011
+    # Check if the drug already exists based on its name
+    existing_drug = collection.find_one({'name': drug_info['name']})
 
-Emergency Contacts
--------------------
-Spouse: Lisa Bonet
-   Relationship: Spouse
-   Phone: (555) 987-6543
+    if existing_drug:
+        # If the drug exists, update its information
+        for stat in drug_info['stats']:
+            print(stat)
+            # Using $addToSet to add the stat if it doesn't exist in the array
+            # Using $inc to increment the count for the existing stats
+            collection.update_one(
+                {'_id': existing_drug['_id'], 'stats.reported_adrs': stat['reported_adrs']},
+                {'$addToSet': {'stats': stat}, '$inc': {'stats.$.count': 1}}
+            )
+    else:
+        print("No existing drug found")
+        # If the drug doesn't exist, create a new document
+        # collection.insert_one(drug_info)
 
-Sister: Sarah Johnson
-   Relationship: Sister
-   Phone: (555) 789-1234
+# Example usage
+def main():
+   client = MongoClient('mongodb://localhost:27017')
+   database = client['monitus_db']
 
-Health Insurance
-----------------
-Insurance Company: XYZ Health Insurance Company
-Plan: Gold Plus Health Plan
-Phone: (555) 123-4567
-Member ID: AB1234567890
-Group Number: S
-Social Security Number: AAA-GG-SSSS
+   drug_info_to_update = {
+      'name': 'Aspirin',
+      'stats': [
+         {'reported_adrs': 'nausea', 'count': 1},
+         {'reported_adrs': 'headache', 'count': 1},
+         {'reported_adrs': 'stomach ache', 'count': 1},
+      ],
+   }
 
-Medical History
-----------------
-Conditions: Stomach Ulcers
-Medications:
-   - Steroids
+   update_or_create_drug(database, drug_info_to_update)
 
-Primary Care Physician
-----------------------
-Name: Dr. Sarah Smith
-Specialty: General Physician
-Phone: (554) 347-7842
-
-Medical Center
---------------
-Name: Truman Medical Centre
-
-Vaccination History
---------------------
-Date Received: 17/05/99
-Patient Identifier: 123
-Vaccination: Dislocated Shoulder
-
-Current Medications
---------------------
-Type       | Medication Name | Dose | Frequency | Indication                    | Note
------------|-----------------|------|------------|-------------------------------|----------------------
-Blood Pressure | Lisinopril       | 10mg | 1/day      | none                          | for blood pressure control
-Diabetes   | Metformin        | -    | 1/day      | none                          | for type 2 diabetes
-Pain Relief | Paracetamol      | 500mg | 2/day      | none                          | none
-"""
-if pdf_content:
-    summary_text = summarize_pdf_content(pdf_content)
-    interaction_result = get_drug_interactions(summary_text)
-    print(interaction_result)
-    # Load the serialized faiss_vectorizer
-    faiss_vectorizer = load_faiss_vectorizer()
-
-    generate_responses(interaction_result, faiss_vectorizer)
-else:
-    print("PDF content not found.")
+if __name__ == "__main__":
+   main()

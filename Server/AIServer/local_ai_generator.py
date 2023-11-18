@@ -5,8 +5,18 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from dotenv import load_dotenv
-from concurrent.futures import ThreadPoolExecutor
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+import torch
+
+model_name_or_path = "TheBloke/zephyr-7B-alpha-GPTQ"
+model = AutoModelForCausalLM.from_pretrained(
+    model_name_or_path,
+    device_map="auto",
+    trust_remote_code=False,
+    revision="main",
+)
+
+tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 
 
 def generate_responses(input_text, faiss_vectorizer):
@@ -14,16 +24,6 @@ def generate_responses(input_text, faiss_vectorizer):
 
     def generate_response_for_medicine(input_text):
         output = retrieve_info(input_text)
-
-        model_name_or_path = "TheBloke/zephyr-7B-alpha-GPTQ"
-        model = AutoModelForCausalLM.from_pretrained(
-            model_name_or_path,
-            device_map="auto",
-            trust_remote_code=False,
-            revision="main",
-        )
-
-        tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 
         prompt_template = """
         You are an intelligent chatbot that predicts adverse drug reactions.
@@ -59,10 +59,16 @@ def generate_responses(input_text, faiss_vectorizer):
 
     # Function for similarity search
     def retrieve_info(query):
-        similar_response = faiss_vectorizer.similarity_search(query, k=10)
+        similar_response = faiss_vectorizer.similarity_search(query, k=5)
         page_contents_array = [doc.page_content for doc in similar_response]
         return page_contents_array
 
-    with ThreadPoolExecutor() as executor:
-        executor.map(generate_response_for_medicine, input_text)
+    # for medicine in input_text:
+    #     generate_response_for_medicine(medicine)
+
     return generatedresponses
+
+input_text = "50 year old man prescribed 500mg paracetamol for 3 days"
+from vectorizer import load_faiss_vectorizer
+faiss_vectorizer = load_faiss_vectorizer()
+generate_responses(input_text, faiss_vectorizer)
