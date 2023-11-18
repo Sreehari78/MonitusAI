@@ -44,23 +44,23 @@ export default function Dropbox(props) {
   }, []);
 
   return (
-    <div className="flex gap-3">
+    <div className='flex gap-3'>
       <Autocomplete
         disablePortal
         options={patients}
         inputComponent={OutlinedInput}
         sx={{
           width: { sm: 100, md: 200, lg: 250, xl: 350 },
-          bgcolor: "#EEEEEE",
+          bgcolor: "#deeeeb",
           "& fieldset": { borderColor: "#008081" },
         }}
         onChange={handleDropdownChange}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Patient"
-            color="success"
-            variant="filled"
+            label='Patient'
+            color='success'
+            variant='filled'
           />
         )}
       />

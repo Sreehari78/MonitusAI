@@ -1,8 +1,7 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTablets } from "@fortawesome/free-solid-svg-icons";
+import Chip from "@mui/material/Chip";
 import { useState } from "react";
 
 const CustomCardHeader = ({ leftContent, rightContent, subHeader }) => {
@@ -38,13 +37,24 @@ const ReactionCard = (props) => {
           borderRadius: 4,
         }}>
         <CustomCardHeader
-          leftContent={<Typography variant='h6'>{props.drugName}</Typography>}
-          rightContent={
-            <Typography className=' text-[18px]'>
-              <FontAwesomeIcon icon={faTablets} />{" "}
+          leftContent={
+            <Typography variant='h6' className=' font-bold'>
+              {props.drugName}
             </Typography>
           }
-          subHeader={<Typography>{props.possibleInteractions}</Typography>}
+          rightContent={
+            <Typography>
+              <Chip
+                label={props.riskInfo}
+                style={{ backgroundColor: props.riskColor, fontSize: "12px" }}
+              />
+            </Typography>
+          }
+          subHeader={
+            <Typography className='text-[16px]'>
+              {props.possibleInteractions}
+            </Typography>
+          }
         />
         <CardContent sx={{ color: "black" }}>
           <Typography variant='body2' color='text.secondary'>

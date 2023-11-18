@@ -112,7 +112,7 @@ def get_drug_interactions(summary_text):
         print("Extracted Text:", extracted_text)
 
     resulting_with_description = [
-        (medicine + extracted_text + summary_text) for medicine in resulting_list
+        (medicine + " is prescribed for patient"+ extracted_text + "A list of possible drug drug reactions of " + medicine + summary_text) for medicine in resulting_list
     ]
 
     return resulting_with_description

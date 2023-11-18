@@ -31,7 +31,7 @@ def predict(ehr,prescription):
         side_effects = ",".join(first_five_items)
         risk_color_mapping = {
             "L": "#90EE90",
-            "none": "#90EE90",
+            "None": "#90EE90",
             "M": "#FFF39A",
             "H": "#FF7F7F"
         }

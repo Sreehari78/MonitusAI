@@ -81,6 +81,7 @@ const page = () => {
   };
 
   const [recievedData, setRecievedData] = React.useState([]);
+  const [isPredicting, setIsPredicting] = React.useState(false);
 
   // Handle prediction
   const handlePredict = async () => {
@@ -99,6 +100,7 @@ const page = () => {
       const data = jsonData.result;
       // Set the patients state variable to the names of  the patients
       setRecievedData(data);
+      setIsPredicting(true);
       console.log(recievedData);
       console.log(recievedData[0]);
       console.log(data[0].DrugName);
@@ -134,7 +136,8 @@ const page = () => {
           style={{
             color: "#6E7191",
             width: "50vw",
-            backgroundColor: "#EEEEEE",
+            padding: "1rem",
+            backgroundColor: "#deeeeb",
             borderRadius: "8px",
             border: "2px solid #008081",
             ":hover": { bgcolor: "#c6dada" },
@@ -171,22 +174,26 @@ const page = () => {
         <div className='flex'>
           <div
             ref={carsousel}
-            className='flex justify-center cursor-grab overflow-hidden w-[50vw] bg-[#EEEEEE] rounded-[20px] px-2'>
-            <m.div
-              initial={{ x: leftWidth }}
-              whileTap={{ cursor: "grabbing" }}
-              drag='x'
-              dragConstraints={{ right: leftWidth, left: -leftWidth }}
-              className='flex gap-16 py-4'>
-              {recievedData.map((adr, item) => (
-                <ReactionCard
-                  key={item}
-                  drugName={adr.DrugName}
-                  possibleInteractions={adr.PossibleInteractions}
-                  sideEffects={adr.SideEffects}
-                />
-              ))}
-            </m.div>
+            className='flex justify-center cursor-grab overflow-hidden w-[50vw] bg-[#deeeeb] rounded-[20px] px-2'>
+            {isPredicting && (
+              <m.div
+                initial={{ x: leftWidth }}
+                whileTap={{ cursor: "grabbing" }}
+                drag='x'
+                dragConstraints={{ right: leftWidth, left: -leftWidth }}
+                className='flex gap-16 py-4 h-72'>
+                {recievedData.map((adr, item) => (
+                  <ReactionCard
+                    key={item}
+                    drugName={adr.DrugName}
+                    possibleInteractions={adr.PossibleInteractions}
+                    sideEffects={adr.SideEffects}
+                    riskColor={adr.Risk_level}
+                    riskInfo={adr.Riskinfo}
+                  />
+                ))}
+              </m.div>
+            )}
           </div>
         </div>
       </div>
