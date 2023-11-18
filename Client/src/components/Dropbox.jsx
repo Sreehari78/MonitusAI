@@ -48,7 +48,6 @@ export default function Dropbox(props) {
       <Autocomplete
         disablePortal
         options={patients}
-        inputComponent={OutlinedInput}
         sx={{
           width: { sm: 100, md: 200, lg: 250, xl: 350 },
           bgcolor: "#deeeeb",

@@ -1,7 +1,10 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
 
-const ReactionReport = () => {
+const ReactionReport = (props) => {
+  const handleDelete = () => {
+    props.onDelete(props.drug);
+  };
   return (
     <div className=" flex gap-8">
       <Card
@@ -19,12 +22,13 @@ const ReactionReport = () => {
               color="text.secondary"
               fontSize={"12px"}
             >
-              Paracetamol
+              {props.drug}
             </Typography>
             <Typography
               variant="body2"
               color="text.secondary"
               fontSize={"12px"}
+              onClick={handleDelete}
             >
               Check
             </Typography>
