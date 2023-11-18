@@ -1,0 +1,185 @@
+Personal Health Record
+
+
+
+
+First Name
+
+
+Last Name
+Personal Information
+Preferred Name
+
+
+Patient Identifier
+Stuart         Little          N/a           123
+
+Gender
+Date of Birth
+Blood Type
+Last Updated Date
+Male         17/05/99       O+
+
+Address
+City
+State
+Zip Code
+123 Oceanfront Drive             Honolulu    Hawaii     6905011
+Emergency Contact
+
+Full Name
+Lisa Bonet
+Full Name
+Sarah Johnson
+
+Insurance Carrier
+XYZ Health Insurance Company
+Policy Number
+AB1234567890
+
+Physician Information
+Relationship
+Spouse
+Relationship
+Sister
+Insurance Information
+Insurance Plan
+Gold Plus Health Plan
+Group Number
+S
+Health Information
+Contact Number
+(555) 987-6543
+Contact Number
+(555) 789-1234
+
+Contact Number
+(555) 123-4567
+Social Security Number
+AAA-GG-SSSS
+
+Name    Designation/Specialty
+Phone
+Address
+Notes
+
+Dr. Sarah Smith
+General Physician
+(554) 347-7842
+Truman Medical Centre
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Known Medical Condition (s)
+Stomach Ulcers
+
+
+
+
+
+
+
+Allergies
+Steroids
+
+
+
+
+
+
+
+http://Carepatron.com
+””  “   carepatron
+
+
+First Name
+
+Last Name
+Personal Information
+Date of Birth
+
+Patient Identifier
+
+Stuart         Little
+
+Current Medications
+17/05/99      123
+Health Information
+
+Medication Name   Dose
+Frequency  Indication
+Note
+
+Lisinopril Metformin Paracetamol
+10mg 500mg 10mg
+1/day 1/day 2/day
+none none none
+for blood pressure control for type 2 diabetes Body Pain
+
+
+
+Vaccination History Vaccination
+
+
+Type
+
+
+Date Received
+
+
+
+
+
+
+
+
+
+
+
+
+
+Additional Notes
+Dislocated Shoulder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://Carepatron.com
+””’"^   carepatron
