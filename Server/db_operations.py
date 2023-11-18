@@ -18,12 +18,13 @@ def insert_user( username, password, role):
     return users_collection.insert_one(user_data)
 
 
-def insert_medicine( med_name, reported_side_effects):
+def insert_medicine( med_name, reported_side_effects,count):
     # Insert medicine data into the 'medicines' collection
     medicines_collection = db["medicines"]
     medicine_data = {
         "name": med_name,
         "stats": reported_side_effects,
+        "count": count,
     }
     return medicines_collection.insert_one(medicine_data)
 
