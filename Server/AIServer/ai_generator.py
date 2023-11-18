@@ -41,7 +41,7 @@ Here is a list of adverse drug reactions that occurred in similar scenarios:
 Give the output in the following format in under 50 words just give the values without any tags:
 Drug Name only||
 Short description of possible interactions with any other drugs if any or any allergies to the medicine||
-list of adverse drug reactions not medical conditions||
+list of not more than 10 adverse drug reactions not medical conditions||
 risk level assessment as H for high and M for Medium and L for Low for the prescription and make that rating the last character in the output after a comma
 """
 
@@ -67,6 +67,7 @@ chain = LLMChain(prompt=prompt, llm=llm)
 
 
 def generate_responses(input_text, faiss_vectorizer):
+    generatedresponses =[]
     def generate_response_for_medicine(input_text):
         # print(f"Input Text for {medicine}: {input_text}")
 
@@ -77,7 +78,8 @@ def generate_responses(input_text, faiss_vectorizer):
         result = chain.run(input=input_text, output=output)  # Fixed input parameter
 
         print("\n\nGenerated Response: " + result + "\n")
-
+        generatedresponses.append(result)
+        print(generatedresponses)
         # 2. Function for similarity search
 
     def retrieve_info(query):
@@ -87,3 +89,4 @@ def generate_responses(input_text, faiss_vectorizer):
 
     with ThreadPoolExecutor() as executor:
         executor.map(generate_response_for_medicine, input_text)
+    return generatedresponses

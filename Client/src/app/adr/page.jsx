@@ -1,8 +1,22 @@
+"use client";
 import Dropbox from "@/components/Dropbox";
 import SideBar from "@/components/SideBar";
 import { TextField } from "@mui/material";
+import ReactionReport from "@/components/ReactionReport";
+import { useState } from "react";
 
 const page = () => {
+  const [reactionName, setReactionName] = useState("");
+  const [reactionList, setReactionList] = useState([]);
+  const handleReactionName = (event) => {
+    setReactionName(event.target.value);
+  };
+
+  const handleSelect = (event) => {
+    if (event.key === "Enter") setReactionList([...reactionList, reactionName]);
+    console.log(reactionList);
+  };
+
   return (
     <div className="flex">
       <SideBar activeButtonNumber={2} />
@@ -14,14 +28,17 @@ const page = () => {
             <TextField
               color="success"
               placeholder="Enter Name"
-              // onChange={handleName}
+              onChange={handleReactionName}
+              onKeyDown={handleSelect}
               colour="success"
               style={{
                 width: "50vw",
                 backgroundColor: "#EEEEEE",
               }}
             />
-            <div className=" h-[30vh] bg-[#EEEEEE] border-2"></div>
+            <div className=" h-[30vh] bg-[#EEEEEE] border-2 p-3">
+              <ReactionReport />
+            </div>
           </div>
         </div>
       </div>

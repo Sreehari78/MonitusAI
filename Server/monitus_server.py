@@ -106,8 +106,10 @@ def get_prediction():
     data = request.get_json()
     name = data.get('name')
     ehr = my_db.get_patient_ehr(name)
-    predict(ehr,data.get('prescription'))
-    return jsonify({'message': 'Upload successful'}), 200
+    out=predict(ehr,data.get('prescription'))
+
+    # Return the result as JSON
+    return jsonify({"result": out})
 
 if __name__ == "__main__":
     app.run(debug=True)

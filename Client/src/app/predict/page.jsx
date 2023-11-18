@@ -80,6 +80,8 @@ const page = () => {
     };
   };
 
+  const [recievedData, setRecievedData] = React.useState([]);
+
   // Handle prediction
   const handlePredict = async () => {
     if (selectedPatient === "" || note === "") return;
@@ -93,7 +95,9 @@ const page = () => {
       });
 
       if (response.ok) {
-        console.log(response);
+        const data = await response.json();
+        setRecievedData(data);
+        console.log(data);
       } else {
         console.error("Failed to upload");
       }
