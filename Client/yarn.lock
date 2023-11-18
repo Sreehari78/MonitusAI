@@ -358,7 +358,14 @@
   resolved "https://registry.npmjs.org/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.17.tgz"
   integrity sha512-eE0uxrpJAEL2ZXkeGLKg8HQDafsiXY+6eNpP4lcv3yIjFfGbU6Hj9/P7Adt8jpU+6JIhmxvILGj2r27pX+zdrQ==
 
-"@mui/material@^5.14.17":
+"@mui/icons-material@^5.14.18":
+  version "5.14.18"
+  resolved "https://registry.npmjs.org/@mui/icons-material/-/icons-material-5.14.18.tgz"
+  integrity sha512-o2z49R1G4SdBaxZjbMmkn+2OdT1bKymLvAYaB6pH59obM1CYv/0vAVm6zO31IqhwtYwXv6A7sLIwCGYTaVkcdg==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+
+"@mui/material@^5.0.0", "@mui/material@^5.14.17":
   version "5.14.17"
   resolved "https://registry.npmjs.org/@mui/material/-/material-5.14.17.tgz"
   integrity sha512-+y0VeOLWfEA4Z98We/UH6KCo8+f2HLZDK45FY+sJf8kSojLy3VntadKtC/u0itqnXXb1Pr4wKB2tSIBW02zY4Q==

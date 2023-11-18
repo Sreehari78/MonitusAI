@@ -129,7 +129,7 @@ const page = () => {
             width: "50vw",
             backgroundColor: "#EEEEEE",
             borderRadius: "8px",
-            border: "1px solid #6E7191",
+            border: "2px solid #008081",
             ":hover": { bgcolor: "#c6dada" },
             ":focus": { bgcolor: "#cde2e2" },
           }}

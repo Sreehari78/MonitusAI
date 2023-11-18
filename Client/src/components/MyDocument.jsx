@@ -9,7 +9,21 @@ import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import { Input } from "@mui/material";
 import ConvertApi from "convertapi-js";
 import CircularProgress from "@mui/material/CircularProgress";
+import { styled } from "@mui/material/styles";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Backdrop from "@mui/material/Backdrop";
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 const MyDocument = (props) => {
   // Initialize the default layout plugin
@@ -71,7 +85,14 @@ const MyDocument = (props) => {
   return (
     <div className='h-[50vh] w-screen text-black flex flex-col gap-8'>
       <form className='flex justify-between'>
-        <Input type='file' onChange={handleChange} />
+        <Button
+          component='label'
+          variant='contained'
+          style={{ backgroundColor: "#008081" }}
+          startIcon={<CloudUploadIcon />}>
+          Upload file
+          <VisuallyHiddenInput type='file' onChange={handleChange} />
+        </Button>
         <Button
           variant='contained'
           color='primary'
@@ -88,10 +109,10 @@ const MyDocument = (props) => {
             <Viewer fileUrl={viewPdf} plugins={[defaultLayoutPluginInstance]} />
           </>
         )}
-        {!viewPdf && <>Upload a PDF to View it here</>}
+
         <Backdrop
           open={loading}
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+          sx={{ color: "#008081", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
           <CircularProgress color='inherit' />
         </Backdrop>
       </Worker>

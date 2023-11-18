@@ -52,9 +52,17 @@ const page = () => {
 
   return (
     <div className='flex'>
-      <SideBar activeButtonNumber={4} />
+      <SideBar activeButtonNumber={3} />
       <div className='w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col px-40 py-40 gap-20'>
-        <TextField placeholder='Enter Name' onChange={handleName} />
+        <TextField
+          placeholder='Enter Name'
+          onChange={handleName}
+          color='success'
+          style={{
+            width: "50vw",
+            backgroundColor: "#EEEEEE",
+          }}
+        />
         <div className='flex justify-end w-[50vw]'>
           <MyDocument handleCallback={CallBack} />
         </div>

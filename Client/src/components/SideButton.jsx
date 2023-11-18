@@ -16,7 +16,7 @@ const SideButton = (props) => {
           style={{
             backgroundColor: props.color,
             borderRadius: "12px",
-            width: "12rem",
+            width: "10vw",
             display: "flex",
             justifyContent: "flex-start",
             paddingLeft: "1rem",

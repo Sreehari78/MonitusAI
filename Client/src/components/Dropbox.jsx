@@ -1,3 +1,4 @@
+"use client";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -49,10 +50,9 @@ export default function Dropbox(props) {
         options={patients}
         inputComponent={OutlinedInput}
         sx={{
-          borderRadius: "12px",
           width: { sm: 100, md: 200, lg: 250, xl: 350 },
           bgcolor: "#EEEEEE",
-          "& fieldset": { borderColor: "#DAF0F0" },
+          "& fieldset": { borderColor: "#008081" },
         }}
         onChange={handleDropdownChange}
         renderInput={(params) => (
