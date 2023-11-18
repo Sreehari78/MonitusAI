@@ -59,14 +59,14 @@ const page = () => {
   };
 
   return (
-    <div className="flex">
+    <div className='flex'>
       <SideBar activeButtonNumber={2} />
-      <div className="w-[85vw] h-[100vh] bg-[#f3f8fe]">
-        <div className="w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col px-40 py-40 gap-20">
+      <div className='w-[85vw] h-[100vh] bg-[#f3f8fe]'>
+        <div className='w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col px-40 py-40 gap-20'>
           <Dropbox handleCallback={CallBack} />
 
-          <div className="w-[50vw] flex flex-col gap-1">
-            <div className=" h-[30vh] bg-[#EEEEEE] border-2 p-3 flex flex-wrap gap-3">
+          <div className='w-[50vw] flex flex-col gap-1'>
+            <div className=' h-[30vh] bg-[#deeeeb] border-2 p-3 flex flex-wrap mb-5 gap-5'>
               {reactionList.map((item, index) => (
                 <ReactionReport
                   drug={item}
@@ -76,32 +76,30 @@ const page = () => {
               ))}
             </div>
             {isTextField ? (
-              <div className="flex gap-5">
+              <div className='flex gap-5'>
                 <TextField
-                  color="success"
-                  placeholder="Enter Name"
+                  color='success'
+                  placeholder='Enter Name'
                   onChange={handleReactionName}
                   onKeyDown={handleSelect}
-                  colour="success"
+                  colour='success'
                   style={{
                     width: "45vw",
-                    backgroundColor: "#EEEEEE",
+                    backgroundColor: "#deeeeb",
                   }}
                 />
                 <Fab
                   style={{ backgroundColor: "#cc0000", color: "#FFFFFF" }}
-                  aria-label="remove"
-                  onClick={toggleTextField}
-                >
+                  aria-label='remove'
+                  onClick={toggleTextField}>
                   <RemoveIcon />
                 </Fab>
               </div>
             ) : (
               <Fab
                 style={{ backgroundColor: "#008081", color: "#FFFFFF" }}
-                aria-label="add"
-                onClick={toggleTextField}
-              >
+                aria-label='add'
+                onClick={toggleTextField}>
                 <AddIcon />
               </Fab>
             )}

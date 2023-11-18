@@ -30,10 +30,10 @@ def predict(ehr,prescription):
         # Join the items back into a string if needed
         side_effects = ",".join(first_five_items)
         risk_color_mapping = {
-            "L": "#90EE90",
+            "L": "#008081",
             "None": "#90EE90",
-            "M": "#FFF39A",
-            "H": "#FF7F7F"
+            "M": "#f27507",
+            "H": "#cc0000"
         }
 
         return {

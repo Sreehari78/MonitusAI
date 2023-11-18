@@ -1,14 +1,16 @@
+// Importing necessary libraries and components
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
-import { useState } from "react";
 
+// CustomCardHeader is a component that displays a header with left and right content and a subheader
 const CustomCardHeader = ({ leftContent, rightContent, subHeader }) => {
   return (
     <div
       style={{
         display: "flex",
+        gap: 8,
         flexDirection: "column",
         padding: 16,
         paddingBottom: 0,
@@ -26,6 +28,7 @@ const CustomCardHeader = ({ leftContent, rightContent, subHeader }) => {
   );
 };
 
+// ReactionCard is a component that displays information about a drug reaction
 const ReactionCard = (props) => {
   return (
     <div className='flex gap-8'>
@@ -45,8 +48,8 @@ const ReactionCard = (props) => {
           rightContent={
             <Typography>
               <Chip
-                label={props.riskInfo}
-                style={{ backgroundColor: props.riskColor, fontSize: "12px" }}
+                label={props.riskInfo} // Risk information about the drug
+                style={{ backgroundColor: props.riskColor, fontSize: "12px" }} // Styling the risk information
               />
             </Typography>
           }
@@ -66,4 +69,5 @@ const ReactionCard = (props) => {
   );
 };
 
+// Exporting the ReactionCard component
 export default ReactionCard;

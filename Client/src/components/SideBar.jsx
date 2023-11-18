@@ -6,16 +6,18 @@ import {
   faWandMagicSparkles,
   faPieChart,
   faPills,
-  faCalendar,
   faUpload,
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import SideButton from "./SideButton";
 
 const SideBar = (props) => {
+  // The SideBar component is a functional component in React
+  // It takes a prop 'activeButtonNumber' which indicates the currently active button on the sidebar
   let activeButton = props.activeButtonNumber;
   let buttonColorAttributes = [];
 
+  // The component returns a sidebar with various buttons
   return (
     <div className='w-[15vw] h-[100vh] bg-[#DAF0F0] text-black flex flex-col justify-between '>
       <div className='flex flex-col justify-between gap-10 mx-8'>
