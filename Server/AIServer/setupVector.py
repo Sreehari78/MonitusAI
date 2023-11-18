@@ -1,0 +1,3 @@
+from vectorizer import setup_faiss_vectorizer
+
+setup_faiss_vectorizer()
