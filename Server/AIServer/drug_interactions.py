@@ -37,7 +37,8 @@ def get_drug_interactions(summary_text):
                     "conceptProperties"
                 ][1]["rxcui"]
             except KeyError:
-                rxcui = "RxCUI not found"
+                rxcui = ""
+                print("No rxcui found for", drug_name)
 
         print(rxcui)
         rxcui_list = rxcui_list + rxcui + "+"
