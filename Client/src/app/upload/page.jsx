@@ -5,7 +5,6 @@ import React, { use } from "react";
 import { Button } from "@mui/material";
 import MyDocument from "@/components/MyDocument";
 import { TextField } from "@mui/material";
-import ConvertApi from "convertapi-js";
 
 const page = () => {
   // State variable for patient name and stored PDF data
@@ -51,23 +50,23 @@ const page = () => {
   };
 
   return (
-    <div className='flex'>
+    <div className="flex">
       <SideBar activeButtonNumber={3} />
-      <div className='w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col px-40 py-40 gap-20'>
+      <div className="w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col px-40 py-40 gap-20">
         <TextField
-          placeholder='Enter Name'
+          placeholder="Enter Patient Name"
           onChange={handleName}
-          color='success'
+          color="success"
           style={{
             width: "50vw",
             backgroundColor: "#EEEEEE",
           }}
         />
-        <div className='flex justify-end w-[50vw]'>
+        <div className="flex justify-end w-[50vw]">
           <MyDocument handleCallback={CallBack} />
         </div>
         <Button
-          variant='contained'
+          variant="contained"
           disableElevation={true}
           onClick={handleUpload}
           style={{
@@ -78,7 +77,8 @@ const page = () => {
             paddingTop: "0.75rem",
             paddingBottom: "0.75rem",
             color: "#F3F8FE",
-          }}>
+          }}
+        >
           Upload
         </Button>
       </div>
