@@ -10,7 +10,7 @@ def summarize_pdf_content(pdf_content):
 
     prompt = f"""
     You are ChatGPT, a large language model designed to summarize patient health records. Please provide a summary of the key details of the patient in the following format:
-    Current medications (names only)||Age, gender, known medical conditions, and previous injuries||Allergies||
+    Current medications (names only)|| Age:, gender, known medical conditions, and previous injuries|| Allergies||
     Use commas to separate items and end each section with ||. Also list it all out in 1 sentence comma seperated. Try to respond as fast as possible.
     """
 

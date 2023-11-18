@@ -1,6 +1,5 @@
 "use client";
 import TextField from "@mui/material/TextField";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import Autocomplete from "@mui/material/Autocomplete";
 import React, { useEffect, useState } from "react";
 
@@ -44,22 +43,22 @@ export default function Dropbox(props) {
   }, []);
 
   return (
-    <div className="flex gap-3">
+    <div className='flex gap-3'>
       <Autocomplete
         disablePortal
         options={patients}
         sx={{
           width: { sm: 100, md: 200, lg: 250, xl: 350 },
-          bgcolor: "#EEEEEE",
+          bgcolor: "#deeeeb",
           "& fieldset": { borderColor: "#008081" },
         }}
         onChange={handleDropdownChange}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Patient"
-            color="success"
-            variant="filled"
+            label='Patient'
+            color='success'
+            variant='filled'
           />
         )}
       />

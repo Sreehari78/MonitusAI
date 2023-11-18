@@ -107,6 +107,7 @@ def get_all_patient():
 def get_prediction():
     data = request.get_json()
     name = data.get('name')
+    print(data.get('prescription'))
     ehr = my_db.get_patient_ehr(name)
     out=predict(name,ehr,data.get('prescription'))
 

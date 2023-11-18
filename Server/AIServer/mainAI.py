@@ -1,4 +1,5 @@
 # main.py
+from sympy import content
 from AIServer.summarizer import summarize_pdf_content
 from AIServer.drug_interactions import get_drug_interactions
 from AIServer.ai_generator import generate_responses
@@ -12,8 +13,10 @@ from db_operations import add_or_increment_side_effects
 
 def predict(name,ehr,prescription):
     print(ehr)
-    summary_text = summarize_pdf_content(ehr+prescription)
-    print(summary_text)
+    content = prescription+" is prescribed as well as"+ehr
+    print("CONTENT IS"+content)
+    summary_text = summarize_pdf_content(content)
+    print("Summary Text"+summary_text)
     interaction_result = get_drug_interactions(summary_text)
     print(interaction_result)
     # Load the serialized faiss_vectorizer
@@ -29,10 +32,10 @@ def predict(name,ehr,prescription):
         # Join the items back into a string if needed
         side_effects = ",".join(first_five_items)
         risk_color_mapping = {
-            "L": "#90EE90",
-            "none": "#90EE90",
-            "M": "#FFF39A",
-            "H": "#FF7F7F"
+            "L": "#008081",
+            "None": "#90EE90",
+            "M": "#f27507",
+            "H": "#cc0000"
         }
         #MongoDB insert
         
