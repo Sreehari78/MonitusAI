@@ -93,7 +93,7 @@ const page = () => {
       });
 
       if (response.ok) {
-        console.log(response);
+        console.log(response.json());
       } else {
         console.error("Failed to upload");
       }

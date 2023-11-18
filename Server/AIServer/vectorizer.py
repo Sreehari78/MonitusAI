@@ -16,7 +16,7 @@ def setup_faiss_vectorizer():
 
 
     loader = CSVLoader(
-        file_path="D:\\Softwares\\Codes\\D3CODE\\Monitus\\try1.csv"
+        file_path="D:\\Softwares\\Codes\\CyientifIQ\\MonitusAI\\try1.csv"
     )
     documents = loader.load()
 
@@ -32,6 +32,6 @@ def setup_faiss_vectorizer():
 
 def load_faiss_vectorizer():
     # Load the serialized faiss_vectorizer
-    with open("D:\\Softwares\\Codes\\D3CODE\\Monitus\\faiss_vectorizer.pkl", "rb") as f:
+    with open("D:\\Softwares\\Codes\\CyientifIQ\\MonitusAI\\faiss_vectorizer.pkl", "rb") as f:
         faiss_vectorizer = pickle.load(f)
     return faiss_vectorizer
