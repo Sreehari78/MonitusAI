@@ -18,6 +18,13 @@ MONITUS AI is an AI-powered tool designed to predict Adverse Drug Reactions (ADR
 - Stores and collects data related to ADRs.
 - Efficient database management.
 
+## Demo
+
+https://github.com/Sreehari78/MonitusAI/assets/51209834/ed6aba31-11b7-4bcc-9c62-60b5464993d9
+
+
+
+
 ## Installation
 
 Follow these steps to install MONITUS AI on your local machine:
