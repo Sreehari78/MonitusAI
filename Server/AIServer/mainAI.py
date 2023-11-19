@@ -65,10 +65,10 @@ def predict(name,ehr,prescription):
             medicines.append(item['DrugName'])
             adrs.append(item['SideEffects'])
             #medicine = medicines_collection.find_one({"name": item['DrugName']})
-            current_medicine = item['DrugName']
-            side_effects_list = [{"name": side_effect, "count": 1} for side_effect in all_side_effects[i]]
-            add_or_increment_side_effects(current_medicine,side_effects_list) 
-            i+=1
+            # current_medicine = item['DrugName']
+            # side_effects_list = [{"name": side_effect, "count": 1} for side_effect in all_side_effects[i]]
+            # add_or_increment_side_effects(current_medicine,side_effects_list) 
+            # i+=1
         patient_collection.update_one(
             {"name": name},
             {"$set": {"prescribed_medicines": medicines, "possible_adverse_drug_reactions": adrs}})
