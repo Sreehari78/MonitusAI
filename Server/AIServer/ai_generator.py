@@ -13,7 +13,7 @@ import os
 OPENAI_API_KEY = os.environ.get('OPEN_API_KEY')
 # Configure OpenAI
 openai_api_base = ("https://api.openai.com/v1/",)
-openai_api_key = (OPENAI_API_KEY,)
+openai_api_key = OPENAI_API_KEY,
 temperature = (0,)
 engine = "gpt-3.5-turbo-1106"
 
@@ -21,7 +21,7 @@ engine = "gpt-3.5-turbo-1106"
 
 llm = ChatOpenAI(
     openai_api_base="https://api.openai.com/v1/",
-    openai_api_key="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",
+    openai_api_key= OPENAI_API_KEY,
     temperature=0,
     # engine="gpt-3.5-turbo"
 )
