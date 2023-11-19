@@ -74,7 +74,7 @@ const SideBar = (props) => {
           color={buttonColorAttributes[0]}
           icon={faPieChart}
           title='Stats'
-          link='/reports'
+          link='/stats'
           textColor={buttonColorAttributes[1]}
         />
       </div>
