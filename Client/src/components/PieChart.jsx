@@ -1,38 +1,37 @@
-"use client";
-
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
+import theme from "./theme";
 
 const data = [
   {
-    id: "rust",
-    label: "rust",
-    value: 180,
-    color: "hsl(110, 70%, 50%)",
+    id: "python",
+    label: "python",
+    value: 86,
+    color: "hsl(167, 70%, 50%)",
   },
   {
-    id: "haskell",
-    label: "haskell",
-    value: 93,
-    color: "hsl(131, 70%, 50%)",
-  },
-  {
-    id: "go",
-    label: "go",
-    value: 393,
-    color: "hsl(195, 70%, 50%)",
-  },
-  {
-    id: "erlang",
-    label: "erlang",
-    value: 219,
-    color: "hsl(146, 70%, 50%)",
+    id: "c",
+    label: "c",
+    value: 288,
+    color: "hsl(122, 70%, 50%)",
   },
   {
     id: "css",
     label: "css",
-    value: 260,
-    color: "hsl(79, 70%, 50%)",
+    value: 366,
+    color: "hsl(126, 70%, 50%)",
+  },
+  {
+    id: "ruby",
+    label: "ruby",
+    value: 137,
+    color: "hsl(226, 70%, 50%)",
+  },
+  {
+    id: "make",
+    label: "make",
+    value: 442,
+    color: "hsl(120, 70%, 50%)",
   },
 ];
 const PieChart = () => {
@@ -44,6 +43,7 @@ const PieChart = () => {
       padAngle={0.7}
       cornerRadius={3}
       activeOuterRadiusOffset={8}
+      colors={{ scheme: "blue_green" }}
       borderWidth={1}
       borderColor={{
         from: "color",
