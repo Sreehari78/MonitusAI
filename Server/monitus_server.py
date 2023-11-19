@@ -20,17 +20,6 @@ def add_user():
 
     return "User added successfully!"
 
-@app.route("/insert_medicine", methods=["POST"])
-def add_medicine():
-    my_db.insert_medicine(
-        request.form["med_name"],
-        request.form["med_side_effects"],
-        request.form["count"],
-    )
-
-    return "Medicine added successfully!"
-
-
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form["username"]

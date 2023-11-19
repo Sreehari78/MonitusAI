@@ -46,8 +46,10 @@ def get_medicine(med_name):
     # Get medicine details from the 'medicines' collection
     medicines_collection = db["medicines"]
     medicine = medicines_collection.find_one({"name": med_name})
-    print(medicine['stats'][0])
-    return medicine['stats'][0]
+    if medicine: 
+        print(medicine['stats'][0])
+        return medicine['stats'][0]
+    return None
 
 def get_all_medicines():
     # Get all medicine details from the 'medicines' collection.
@@ -94,7 +96,10 @@ def add_or_increment_side_effects(patient_name, side_effects):
     patients = patients_collection.find_one({"name": patient_name})
     print("Patient")
     print(patients)
+    if not patients:
+        return "Patient not found"
     prescribed_medicines = patients.get("prescribed_medicines")
+    
     print("Prescribed Medicines")
     print(prescribed_medicines)
     medicines_collection = db["medicines"]  
