@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Actor&family=Poppins&display=swap");
+
+.nav-navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: fit-content;
+  width: 100vw;
+  background-color: #fafafa;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  z-index: 50; /* Ensures the navbar is on top of other content */
+}
+
+.nav-logo {
+  flex: 3;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 1em 2em 0 2em;
+  height: fit-content;
+}
+
+.logo-text {
+  color: #008080;
+  font-family: Poppins;
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 0 0 0 0.5em;
+}
+
+.nav-logo-img {
+  width: 2.5em;
+  height: 2.5em;
+}
+
+.nav-navbar ul {
+  flex: 1;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  align-content: end;
+}
+
+.nav-navbar li {
+  display: inline;
+  margin: 0 1.5em;
+  font-size: 1em;
+}
+
+.nav-navbar a {
+  text-decoration: none;
+  color: #000000;
+  transition: 0.3s;
+}
+
+.nav-navbar a:hover {
+  color: #6a83df;
+}
+
+.downArrow {
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 900px) {
+  .nav-navbar ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100vw;
+    background-color: #fafafa;
+    z-index: 49;
+    padding: 0 0 1.25em 0;
+  }
+
+  .nav-navbar.active ul {
+    display: flex;
+  }
+
+  .nav-navbar li {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .nav-contact {
+    border: none;
+    padding: 10px auto;
+  }
+
+  .mobile {
+    display: flex;
+    margin: 1.5em 2em 0em 0;
+  }
+
+  .mobile i {
+    scale: 1.5;
+    height: 1.5em;
+    width: 1.5em;
+    color: #000;
+  }
+}

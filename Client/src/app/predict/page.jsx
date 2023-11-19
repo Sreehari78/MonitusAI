@@ -101,6 +101,7 @@ const page = () => {
       // Parse the response as JSON
       const jsonData = await response.json();
       const data = jsonData.result;
+      console.log(data);
       // Set the patients state variable to the names of  the patients
       setRecievedData(data); // Set the received data state variable to the data received from the server
       setIsPredicting(true); // Set the predicting status to true
