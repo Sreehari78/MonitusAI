@@ -1,0 +1,7 @@
+pymongo
+PyMuPDF
+openai
+requests
+langchain
+sentence_transformers
+InstructorEmbedding

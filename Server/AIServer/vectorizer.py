@@ -14,10 +14,7 @@ def setup_faiss_vectorizer():
         encode_kwargs=encode_kwargs,
     )
 
-
-    loader = CSVLoader(
-        file_path="D:\\Softwares\\Codes\\CyientifIQ\\MonitusAI\\try1.csv"
-    )
+    loader = CSVLoader(file_path="data.csv")
     documents = loader.load()
 
     embeddings = model_norm
@@ -31,6 +28,6 @@ def setup_faiss_vectorizer():
 
 def load_faiss_vectorizer():
     # Load the serialized faiss_vectorizer
-    with open("D:\\Softwares\\Codes\\CyientifIQ\\MonitusAI\\faiss_vectorizer.pkl", "rb") as f:
+    with open("faiss_vectorizer.pkl", "rb") as f:
         faiss_vectorizer = pickle.load(f)
     return faiss_vectorizer

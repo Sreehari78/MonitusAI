@@ -105,7 +105,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 # Your existing AI model and response generation logic
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
 # Configure OpenAI
 openai_api_base = ("https://api.openai.com/v1/",)
 openai_api_key = (OPENAI_API_KEY,)
@@ -157,7 +157,8 @@ chain = LLMChain(prompt=prompt, llm=llm)
 
 
 def generate_responses(input_text, faiss_vectorizer):
-    generatedresponses =[]
+    generatedresponses = []
+
     def generate_response_for_medicine(input_text):
         # print(f"Input Text for {medicine}: {input_text}")
 
@@ -169,7 +170,7 @@ def generate_responses(input_text, faiss_vectorizer):
         generatedresponses.append(result)
         print(result)
 
-    #Function for similarity search
+    # Function for similarity search
     def retrieve_info(query):
         similar_response = faiss_vectorizer.similarity_search(query, k=5)
         page_contents_array = [doc.page_content for doc in similar_response]
@@ -178,6 +179,6 @@ def generate_responses(input_text, faiss_vectorizer):
     with ThreadPoolExecutor() as executor:
         executor.map(generate_response_for_medicine, input_text)
     # for medicine in input_text:
-        # generate_response_for_medicine(medicine)
-        
+    # generate_response_for_medicine(medicine)
+
     return generatedresponses

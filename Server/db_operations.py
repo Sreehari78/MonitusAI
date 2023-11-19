@@ -9,20 +9,23 @@ client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client["monitus_db"]
 
 
-def insert_user( username, password, role):
+def insert_user(username, password, role):
     # Insert user data into the 'users' collection
     users_collection = db["users"]
-    user_data = {
-        "username": username, 
-        "password": password, 
-        "role": role   }
+    user_data = {"username": username, "password": password, "role": role}
     return users_collection.insert_one(user_data)
 
 
-def insert_patient( name, pdf, observed_adrs, possible_adrs, patient_referred_doctors, patient_referred_nurses, patient_prescribed_medicines,):
-    # client = pymongo.MongoClient("mongodb://localhost:27017/")   
-    # db = client["monitus_db"]
-   # Insert patient data into the 'patients' collection
+def insert_patient(
+    name,
+    pdf,
+    observed_adrs,
+    possible_adrs,
+    patient_referred_doctors,
+    patient_referred_nurses,
+    patient_prescribed_medicines,
+):
+    # Insert patient data into the 'patients' collection
     patients_collection = db["patients"]
     patient_data = {
         "name": name,
@@ -33,15 +36,16 @@ def insert_patient( name, pdf, observed_adrs, possible_adrs, patient_referred_do
         "referred_nurses": patient_referred_nurses,
         "prescribed_medicines": patient_prescribed_medicines,
     }
-    # print(client.server_info())
-    # print(patient_data)
+
     return patients_collection.insert_one(patient_data)
 
-def get_user( username, password):
+
+def get_user(username, password):
     # Get user data from the 'users' collection
     users_collection = db["users"]
     user = users_collection.find_one({"username": username, "password": password})
     return user
+
 
 def get_side_effects_stats(med_name):
     # Get medicine details from the 'medicines' collection
@@ -62,6 +66,7 @@ def get_side_effects_stats(med_name):
     else:
         return None
 
+
 def get_all_medicines():
     # Get all medicine details from the 'medicines' collection.
     medicines_collection = db["medicines"]
@@ -71,17 +76,19 @@ def get_all_medicines():
     print(medicine_list)
     return medicine_list
 
-def get_patient( patient_id):
+
+def get_patient(patient_id):
     # Get all patient details from the 'patients' collection.
     patients_collection = db["patients"]
     patient = patients_collection.find_one({"_id": ObjectId(patient_id)})
 
     return patient
 
+
 def get_all_patients():
     # Get all patient names and IDs from the 'patients' collection
     patients_collection = db["patients"]
-    
+
     # Query all documents in the collection
     patients = list(patients_collection.find({}, {"name": 1, "_id": 0}))
     names_list = [patient["name"] for patient in patients]
@@ -90,9 +97,8 @@ def get_all_patients():
 
 
 def get_patient_ehr(patient_name):
-
     patients_collection = db["patients"]
-    
+
     # Find the patient by Name
     patient = patients_collection.find_one({"name": patient_name})
 
@@ -101,7 +107,8 @@ def get_patient_ehr(patient_name):
         return pdf_binary
     else:
         return "PDF not found for the given patient ID"
-    
+
+
 def add_or_increment_side_effects(patient_name, side_effects):
     patients_collection = db["patients"]
     patients = patients_collection.find_one({"name": patient_name})
@@ -110,14 +117,14 @@ def add_or_increment_side_effects(patient_name, side_effects):
     if not patients:
         return "Patient not found"
     prescribed_medicines = patients.get("prescribed_medicines")
-    
+
     print("Prescribed Medicines")
     print(prescribed_medicines)
-    medicines_collection = db["medicines"]  
+    medicines_collection = db["medicines"]
     # Check if the medicine exists
     for current_medicine in prescribed_medicines:
         medicine = medicines_collection.find_one({"name": current_medicine})
-        #print(medicine)
+        # print(medicine)
         if medicine:
             medicine_name = medicine["name"]
             # Iterate over each side effect in the list of side effects
@@ -134,38 +141,44 @@ def add_or_increment_side_effects(patient_name, side_effects):
                     if existing_side_effect["name"] == side_effect_name:
                         # If side effect exists, increment its count
                         medicines_collection.update_one(
-                            {"name": medicine_name, "sideEffects.name": side_effect_name},
-                            {"$inc": {"sideEffects.$.count": side_effect_count}}
+                            {
+                                "name": medicine_name,
+                                "sideEffects.name": side_effect_name,
+                            },
+                            {"$inc": {"sideEffects.$.count": side_effect_count}},
                         )
                         side_effect_exists = True
-                        print(f"Side effect '{side_effect_name}' count incremented for medicine '{medicine_name}'")
+                        print(
+                            f"Side effect '{side_effect_name}' count incremented for medicine '{medicine_name}'"
+                        )
                         break
-                
+
                 # If side effect doesn't exist, add it to the medicine
                 if not side_effect_exists:
                     medicines_collection.update_one(
                         {"name": medicine_name},
-                        {"$push": {
-                            "sideEffects": {
-                                "name": side_effect_name,
-                                "count": side_effect_count
+                        {
+                            "$push": {
+                                "sideEffects": {
+                                    "name": side_effect_name,
+                                    "count": side_effect_count,
+                                }
                             }
-                        }}
+                        },
                     )
-                    print(f"Side effect '{side_effect_name}' added for medicine '{medicine_name}'")
+                    print(
+                        f"Side effect '{side_effect_name}' added for medicine '{medicine_name}'"
+                    )
 
         else:
             # If medicine doesn't exist, create a new medicine entry with the side effects
-            new_medicine = {
-                "name": current_medicine,
-                "sideEffects": side_effects
-            }
+            new_medicine = {"name": current_medicine, "sideEffects": side_effects}
             medicines_collection.insert_one(new_medicine)
             print(f"Medicine '{current_medicine}' with side effects added")
 
 
 def get_adr_list(name):
-    patient_collection = db['patients']  # Replace 'patients' with your collection name
+    patient_collection = db["patients"]  # Replace 'patients' with your collection name
     patient = patient_collection.find_one({"name": name})
     print(patient)
     # return "hehe"
@@ -177,13 +190,15 @@ def get_adr_list(name):
         # for reaction in possible_reactions:
         #     print(f"- {reaction}")
         #     allreactions=allreaction
-        possible_reactions = patient['possible_adverse_drug_reactions']
+        possible_reactions = patient["possible_adverse_drug_reactions"]
         if possible_reactions:  # Check if reactions exist
             combined_list = []
 
             for reaction in possible_reactions:
-                combined_list.extend(reaction.split(', '))  # Split the first reaction by comma and space
-            return(combined_list)
-        
+                combined_list.extend(
+                    reaction.split(", ")
+                )  # Split the first reaction by comma and space
+            return combined_list
+
     else:
         return(f"No patient found with the name: {name}")
