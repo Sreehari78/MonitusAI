@@ -1,6 +1,0 @@
-pip install pymongo
-pip install PyMuPDF
-pip install openai
-pip install requests
-pip install langchain sentence_transformers 
-pip install InstructorEmbedding

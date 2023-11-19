@@ -1,12 +1,12 @@
 # summarizer.py
 import openai
-
+import os
 
 def summarize_pdf_content(pdf_content):
     # Improved SUMMARIZER
     client = openai.OpenAI(
         # defaults to os.environ.get("OPENAI_API_KEY")
-        api_key="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",
+        api_key=os.environ.get('OPEN_API_KEY'),
     )
 
     prompt = f"""

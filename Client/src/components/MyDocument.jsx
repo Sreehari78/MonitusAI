@@ -53,7 +53,7 @@ const MyDocument = (props) => {
           setPdfFile(reader.result);
         };
         setPdfFile(e.target.files[0]);
-        let convertApi = ConvertApi.auth("gBTgo0spxZF4hfIS");
+        let convertApi = ConvertApi.auth("ConvertAPIKey");
         let params = convertApi.createParams();
         params.add("File", e.target.files[0]);
         let result = await convertApi.convert("pdf", "txt", params);
@@ -82,27 +82,29 @@ const MyDocument = (props) => {
   };
 
   return (
-    <div className='h-[50vh] w-screen text-black flex flex-col gap-8'>
-      <form className='flex justify-between'>
+    <div className="h-[50vh] w-screen text-black flex flex-col gap-8">
+      <form className="flex justify-between">
         <Button
-          component='label'
-          variant='contained'
+          component="label"
+          variant="contained"
           style={{ backgroundColor: "#008081" }}
-          startIcon={<CloudUploadIcon />}>
+          startIcon={<CloudUploadIcon />}
+        >
           Upload file
-          <VisuallyHiddenInput type='file' onChange={handleChange} />
+          <VisuallyHiddenInput type="file" onChange={handleChange} />
         </Button>
         <Button
-          variant='contained'
-          color='primary'
-          type='submit'
+          variant="contained"
+          color="primary"
+          type="submit"
           onClick={handleSubmitPDF}
-          style={{ backgroundColor: "#008081" }}>
+          style={{ backgroundColor: "#008081" }}
+        >
           View PDF
         </Button>
       </form>
 
-      <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js'>
+      <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
         {viewPdf && (
           <>
             <Viewer fileUrl={viewPdf} plugins={[defaultLayoutPluginInstance]} />
@@ -111,8 +113,9 @@ const MyDocument = (props) => {
 
         <Backdrop
           open={loading}
-          sx={{ color: "#008081", zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-          <CircularProgress color='inherit' size={100} />
+          sx={{ color: "#008081", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        >
+          <CircularProgress color="inherit" size={100} />
         </Backdrop>
       </Worker>
     </div>
