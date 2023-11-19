@@ -86,6 +86,8 @@ The Report ADRs page is designed to:
 
 - **Report symptoms or Observed ADRs:**
   - Can be used to report symtoms obsereved by a patient
+- **The user can select from the predicted ADRs**
+  - The predicted ADRs can be selected or new ones can be added
 
 ### Upload Electronic Health Record
 
@@ -93,6 +95,8 @@ The Upload Electronic Health Record feature allows you to:
 
 - **insert Patient into the database:**
   - Helps in analysing previous medical conditions to give predictions
+- **View uploaded ehr**
+  - Can view ehr before uploading to database
 
 ### ADR Report Page
 
