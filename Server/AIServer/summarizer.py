@@ -1,6 +1,7 @@
 # summarizer.py
 import openai
 
+
 def summarize_pdf_content(pdf_content):
     # Improved SUMMARIZER
     client = openai.OpenAI(
@@ -22,7 +23,7 @@ def summarize_pdf_content(pdf_content):
         model="gpt-3.5-turbo-1106",
         max_tokens=150,  # Adjust the value based on the desired length of the summary
     )
-    
+
     result = chat_completion.choices[0].message.content.strip()
     print(result)
     return result
