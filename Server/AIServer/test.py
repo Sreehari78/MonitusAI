@@ -1,41 +1,59 @@
-from pymongo import MongoClient
+import pymongo
 
-# def update_or_create_drug(db, drug_info):
-#     collection = db['medicines']
+def add_or_increment_side_effects(medicine_name, side_effects):
+    client = pymongo.MongoClient("mongodb://localhost:27017/")   
+    db = client["monitus_db"]  # Use your actual database name here
+    medicines_collection = db["medicines"]  # Use your actual collection name here
 
-#     # Check if the drug already exists based on its name
-#     existing_drug = collection.find_one({'name': drug_info['name']})
+    # Check if the medicine exists
+    medicine = medicines_collection.find_one({"name": medicine_name})
 
-#     if existing_drug:
-#         # If the drug exists, update its information
-#         for stat in drug_info['stats']:
-#             print(stat)
-#             # Using $addToSet to add the stat if it doesn't exist in the array
-#             # Using $inc to increment the count for the existing stats
-#             collection.update_one(
-#                 {'_id': existing_drug['_id'], 'stats.reported_adrs': stat['reported_adrs']},
-#                 {'$addToSet': {'stats': stat}, '$inc': {'stats.$.count': 1}}
-#             )
-#     else:
-#         print("No existing drug found")
-#         # If the drug doesn't exist, create a new document
-#         # collection.insert_one(drug_info)
+    if medicine:
+        # Iterate over each side effect in the list
+        for side_effect in side_effects:
+            side_effect_name = side_effect["name"]
+            side_effect_count = side_effect["count"]
 
-# # Example usage
-# def main():
-#    client = MongoClient('mongodb://localhost:27017')
-#    database = client['monitus_db']
+            side_effect_exists = False
+            # Check if the side effect already exists for the medicine
+            for existing_side_effect in medicine["sideEffects"]:
+                if existing_side_effect["name"] == side_effect_name:
+                    # If side effect exists, increment its count
+                    medicines_collection.update_one(
+                        {"name": medicine_name, "sideEffects.name": side_effect_name},
+                        {"$inc": {"sideEffects.$.count": side_effect_count}}
+                    )
+                    side_effect_exists = True
+                    print(f"Side effect '{side_effect_name}' count incremented for medicine '{medicine_name}'")
+                    break
+            
+            # If side effect doesn't exist, add it to the medicine
+            if not side_effect_exists:
+                medicines_collection.update_one(
+                    {"name": medicine_name},
+                    {"$push": {
+                        "sideEffects": {
+                            "name": side_effect_name,
+                            "count": side_effect_count
+                        }
+                    }}
+                )
+                print(f"Side effect '{side_effect_name}' added for medicine '{medicine_name}'")
 
-#    drug_info_to_update = {
-#       'name': 'Aspirin',
-#       'stats': [
-#          {'reported_adrs': 'nausea', 'count': 1},
-#          {'reported_adrs': 'headache', 'count': 1},
-#          {'reported_adrs': 'stomach ache', 'count': 1},
-#       ],
-#    }
+    else:
+        # If medicine doesn't exist, create a new medicine entry with the side effects
+        new_medicine = {
+            "name": medicine_name,
+            "sideEffects": side_effects
+        }
+        medicines_collection.insert_one(new_medicine)
+        print(f"Medicine '{medicine_name}' with side effects added")
 
-#    update_or_create_drug(database, drug_info_to_update)
+# Example usage:
+side_effects_list = [
+    {"name": "Nausea", "count": 1},
+    {"name": "Headache", "count": 1},
+    {"name": "Dizziness", "count": 1}
+]
 
-# if __name__ == "__main__":
-#    main()
+add_or_increment_side_effects("Paracetamol", side_effects_list)

@@ -24,6 +24,7 @@ def add_medicine():
     my_db.insert_medicine(
         request.form["med_name"],
         request.form["med_side_effects"],
+        request.form["count"],
     )
 
     return "Medicine added successfully!"

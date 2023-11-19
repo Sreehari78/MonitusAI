@@ -22,7 +22,6 @@ def setup_faiss_vectorizer():
 
     embeddings = model_norm
     faiss_vectorizer = FAISS.from_documents(documents, embeddings)
-    faiss_vectorizer = FAISS.from_documents(documents, embeddings)
 
     # Serialize and store the faiss_vectorizer
     with open("faiss_vectorizer.pkl", "wb") as f:
