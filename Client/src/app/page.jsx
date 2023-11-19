@@ -15,7 +15,7 @@ export default function Home() {
     <main>
       <div className='w-[100vw] h-[100vh] bg-[#f3f8fe] text-black'>
         <motion.div
-          className='fixed h-5 bg-[#008081] origin-top'
+          className='fixed h-3 bg-[#008081] origin-top w-[100vw]'
           style={{ scaleX: scrollYProgress }}
         />
         <div className='flex justify-between bg-[#f3f8fe] gap-[50vw] z-50 py-8 px-10'>

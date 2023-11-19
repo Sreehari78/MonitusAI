@@ -1,3 +1,4 @@
+from httpx import get
 import pymongo
 import gridfs
 from bson import Binary, ObjectId
@@ -42,13 +43,13 @@ def get_user( username, password):
     user = users_collection.find_one({"username": username, "password": password})
     return user
 
-def get_medicine(med_name):
+def get_side_effects_stats(med_name):
     # Get medicine details from the 'medicines' collection
     medicines_collection = db["medicines"]
     medicine = medicines_collection.find_one({"name": med_name})
     if medicine: 
-        print(medicine['stats'][0])
-        return medicine['stats'][0]
+        print(medicine['sideEffects'])
+        return medicine['sideEffects']
     return None
 
 def get_all_medicines():

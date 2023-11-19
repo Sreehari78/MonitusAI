@@ -13,7 +13,7 @@ const hero = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
           className='hero-left'>
-          <div className='l-text1'>Product Company</div>
+          <div className='l-text1'>AI POWERED </div>
           <div className='l-text2'>
             Pioneering ADR prediction for Safer Healthcare
           </div>

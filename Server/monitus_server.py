@@ -33,16 +33,6 @@ def login():
         return jsonify({"Invalid credentials. Please try again."})
 
 
-@app.route("/get_medicines", methods=["POST"])
-def view_medicines(med_name):
-    medicine = my_db.get_medicine( med_name)
-
-    # Check if the medicine is valid
-    if medicine:
-        return jsonify(medicine)
-    else:
-        return jsonify({"error": "Medicine not found"}), 400
-
 @app.route('/get_patient', methods=['POST'])
 def view_patient(patient_id):
     patient = my_db.get_patient( patient_id)
@@ -124,5 +114,12 @@ def reported_adrs():
     my_db.add_or_increment_side_effects(patient_name, side_effects)
     return jsonify({"reaction" : "success"})
 
+@app.route("/get_stats", methods=["POST"])
+def get_stats(med_name):
+    data = request.get_json()
+    med_name= data.get('med_name')
+    return jsonify({"sideEffects" : my_db.get_side_effects_stats( med_name)})
+    
+    
 if __name__ == "__main__":
     app.run(debug=True)
