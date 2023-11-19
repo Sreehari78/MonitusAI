@@ -56,6 +56,11 @@ const page = () => {
             Get Stats
           </Button>
         </div>
+        {selectedDrug !== "" && (
+          <div className='text-[#008081] text-2xl'>
+            Observed Symptom for {selectedDrug}
+          </div>
+        )}
         <div className='w-[60vw] h-[40vh]'>
           <PieChart chartData={recievedData} />
         </div>

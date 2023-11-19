@@ -6,7 +6,7 @@ def summarize_pdf_content(pdf_content):
     # Improved SUMMARIZER
     client = openai.OpenAI(
         # defaults to os.environ.get("OPENAI_API_KEY")
-        api_key="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",
+        api_key="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",
     )
 
     prompt = f"""

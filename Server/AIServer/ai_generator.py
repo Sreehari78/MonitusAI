@@ -105,7 +105,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 # Your existing AI model and response generation logic
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = "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"
 # Configure OpenAI
 openai_api_base = ("https://api.openai.com/v1/",)
 openai_api_key = (OPENAI_API_KEY,)

@@ -28,6 +28,6 @@ def setup_faiss_vectorizer():
 
 def load_faiss_vectorizer():
     # Load the serialized faiss_vectorizer
-    with open("faiss_vectorizer.pkl", "rb") as f:
+    with open("D:\\Softwares\\Codes\\CyientifIQ\\MonitusAI\\faiss_vectorizer.pkl", "rb") as f:
         faiss_vectorizer = pickle.load(f)
     return faiss_vectorizer
