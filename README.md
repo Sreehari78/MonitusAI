@@ -62,17 +62,9 @@ Follow these steps to install MONITUS AI on your local machine:
 
 The Predict page serves multiple functions:
 
-- **Give Prescription:**
-
-  - Provide prescriptions for medications.
+- **Predict Drug-drug interaction**
 
 - **Predict ADRs (Adverse Drug Reactions):**
-
-  - Utilize AI algorithms to predict potential adverse reactions to prescribed drugs.
-
-- **Predict Possible Drug-Drug Interactions:**
-
-  - Evaluate and predict possible interactions between different prescribed drugs.
 
 - **Predict the Severity of ADRs:**
   - Estimate the severity levels of Adverse Drug Reactions.
@@ -83,25 +75,14 @@ The Report ADRs page is designed to:
 
 - **Report ADRs in Observed ADRs:**
 
-  - Record and report any observed Adverse Drug Reactions.
-
 - **Report Observed ADRs in Patients:**
-  - Document and report specific Adverse Drug Reactions observed in patients.
 
 ### Upload Electronic Health Record
 
 The Upload Electronic Health Record feature allows you to:
 
-- **Give Prescription and Predict ADRs:**
-
-  - Provide prescriptions while simultaneously predicting potential Adverse Drug Reactions.
-
-- **Predict Possible Drug-Drug Interactions:**
-
-  - Assess and predict possible interactions between different prescribed drugs.
-
-- **Predict the Severity of ADRs:**
-  - Estimate the severity levels of Adverse Drug Reactions.
+- **insert Patient into the database:**
+  - Helps in analysing previous medical conditions to give predictions
 
 ### ADR Report Page
 
