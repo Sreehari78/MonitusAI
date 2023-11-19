@@ -51,10 +51,17 @@ Follow these steps to install MONITUS AI on your local machine:
 5. Run the development server:
 
    ```bash
-   python monitus_server.py runserver
+   python monitus_server.py
    ```
 
-6. Open your web browser and navigate to [http://127.0.0.1:3000/](http://127.0.0.1:3000/) to access MONITUS AI.
+6. Run client server:
+
+   ```bash
+   npm i
+   npm run dev
+   ```
+
+7. Open your web browser and navigate to [http://127.0.0.1:3000/](http://127.0.0.1:3000/) to access MONITUS AI.
 
 ## Usage
 
