@@ -1,4 +1,5 @@
 import json
+from os import name
 from flask import Flask, request, jsonify
 import db_operations as my_db
 from flask_cors import CORS
@@ -126,8 +127,12 @@ def get_adr():
 @app.route('/reported_adrs', methods=['POST'])
 def reported_adrs():
     data = request.get_json()
-    reactions = data.get('adrs')
-    print(reactions)
+    side_effects = data.get('adrs')
+    patient_name = data.get('patient')
+    print(data)
+    print(patient_name)
+    print(side_effects)
+    my_db.add_or_increment_side_effects(patient_name, side_effects)
     return jsonify({"reaction" : "success"})
 
 if __name__ == "__main__":

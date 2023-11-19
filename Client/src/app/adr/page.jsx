@@ -24,6 +24,7 @@ const page = () => {
 
   const handlePatientSelect = async () => {
     try {
+      setReactionList([]);
       const response = await fetch("http://localhost:5000/get_adr", {
         method: "POST",
         headers: {
@@ -35,7 +36,10 @@ const page = () => {
       // Check if the request was successful
       if (response.ok) {
         const jsonData = await response.json();
-        setReactionList(jsonData.reaction);
+        console.log(jsonData.reaction);
+        if (jsonData.reaction) {
+          setReactionList(jsonData.reaction);
+        }
       } else {
         console.error("Failed to upload");
       }
@@ -67,7 +71,7 @@ const page = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ adrs: reactionList }),
+        body: JSON.stringify({ patient: patientName, adrs: reactionList }),
       });
 
       // Check if the request was successful
