@@ -80,4 +80,3 @@ def predict(name,ehr,prescription):
     # Print or save the JSON
     print(output_list)
     return output_list
-

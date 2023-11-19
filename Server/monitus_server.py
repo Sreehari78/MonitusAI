@@ -109,12 +109,9 @@ def get_prediction():
     name = data.get('name')
     print(data.get('prescription'))
     ehr = my_db.get_patient_ehr(name)
-    out=predict(name,ehr,data.get('prescription'))
-
-    # Return the result as JSON
-    output_json = json.dumps(out, indent=2)
-
-    return ({"result": output_json})
+    out=predict(name, ehr,data.get('prescription'))
+    print(jsonify(result=out))
+    return jsonify({"result" : out})
 
 @app.route("/get_adr", methods=["POST"])
 def get_adr(patient_name):
