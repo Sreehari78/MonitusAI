@@ -140,3 +140,28 @@ def add_or_increment_side_effects(medicine_name, side_effects):
         }
         medicines_collection.insert_one(new_medicine)
         print(f"Medicine '{medicine_name}' with side effects added")
+
+
+def get_adr_list(name):
+    patient_collection = db['patients']  # Replace 'patients' with your collection name
+    patient = patient_collection.find_one({"name": name})
+    print(patient)
+    # return "hehe"
+    # Find all documents where possible adverse drug reactions exist
+    if patient:
+        print(f"Patient: {patient['name']}")
+        # possible_reactions = patient['possible_adverse_drug_reactions']
+        # print("Possible Adverse Drug Reactions:")
+        # for reaction in possible_reactions:
+        #     print(f"- {reaction}")
+        #     allreactions=allreaction
+        possible_reactions = patient['possible_adverse_drug_reactions']
+        if possible_reactions:  # Check if reactions exist
+            combined_list = []
+
+            for reaction in possible_reactions:
+                combined_list.extend(reaction.split(', '))  # Split the first reaction by comma and space
+            return(combined_list)
+        
+    else:
+        return(f"No patient found with the name: {name}")

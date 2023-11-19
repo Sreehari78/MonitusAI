@@ -113,5 +113,22 @@ def get_prediction():
     print(jsonify(result=out))
     return jsonify({"result" : out})
 
+@app.route('/get_adr', methods=['POST'])
+def get_adr():
+    data = request.get_json()
+    patient_name = data.get('patient')
+    print(patient_name)
+    adr_list = my_db.get_adr_list(patient_name)
+    print(adr_list)
+
+    return jsonify({"reaction" : adr_list})
+
+@app.route('/reported_adrs', methods=['POST'])
+def reported_adrs():
+    data = request.get_json()
+    reactions = data.get('adrs')
+    print(reactions)
+    return jsonify({"reaction" : "success"})
+
 if __name__ == "__main__":
     app.run(debug=True)
