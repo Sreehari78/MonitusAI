@@ -44,7 +44,7 @@ export default function Dropbox(props) {
   }, []);
 
   return (
-    <div className='flex gap-3'>
+    <div className="flex gap-3">
       <Autocomplete
         disablePortal
         options={patients}
@@ -58,9 +58,9 @@ export default function Dropbox(props) {
         renderInput={(params) => (
           <TextField
             {...params}
-            label='Patient'
-            color='success'
-            variant='filled'
+            label="Patient"
+            color="success"
+            variant="filled"
           />
         )}
       />
