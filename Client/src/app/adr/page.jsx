@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ReactionReport from "@/components/ReactionReport";
 import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const page = () => {
   const [patientName, setPatientName] = useState("");
@@ -83,6 +83,7 @@ const page = () => {
     } catch (error) {
       console.error("Error during upload:", error);
     }
+    setReactionList([]);
   };
   return (
     <div className='flex'>

@@ -7,12 +7,13 @@ import RightArrow from "../../public/Arrow-forward.svg";
 import Features1 from "../../public/Features-1.png";
 import Features2 from "../../public/Features-2.png";
 import Features3 from "../../public/Features-3.png";
+import { motion as m } from "framer-motion";
 import "./styles/Features.css";
 
 const Features = () => {
   return (
     <>
-      <div className='features'>
+      <div className='features overflow-x-hidden'>
         <div className='f-heading'>Key Features</div>
         <div className='Underline'>
           <Image src={Underline} alt='Underline' />
@@ -40,14 +41,22 @@ const Features = () => {
               </button>
             </div>
           </div>
-          <div className='f-image'>
+          <m.div
+            initial={{ opacity: 0, x: 200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className='f-image'>
             <Image src={Features1} alt='Features1' />
-          </div>
+          </m.div>
         </div>
         <div className='Feature-2'>
-          <div className='f-image'>
+          <m.div
+            initial={{ opacity: 0, x: -200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className='f-image'>
             <Image src={Features2} alt='Features2' />
-          </div>
+          </m.div>
           <div className='f-content'>
             <div className='f-head'>Report ADR's</div>
             <div className='f-text'>
@@ -90,9 +99,13 @@ const Features = () => {
               </button>
             </div>
           </div>
-          <div className='f-image'>
+          <m.div
+            initial={{ opacity: 0, x: 200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className='f-image'>
             <Image src={Features3} alt='Features3' />
-          </div>
+          </m.div>
         </div>
       </div>
     </>

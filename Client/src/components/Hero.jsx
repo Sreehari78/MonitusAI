@@ -2,13 +2,17 @@
 import "./styles/Hero.css";
 import Image from "next/image";
 import doctor from "../../public/doctor.png";
-import Waves from "../../public/waves.svg";
+import { motion as m } from "framer-motion";
 
 const hero = () => {
   return (
     <>
       <div className='hero' id='hero'>
-        <div className='hero-left'>
+        <m.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
+          className='hero-left'>
           <div className='l-text1'>Product Company</div>
           <div className='l-text2'>
             Pioneering ADR prediction for Safer Healthcare
@@ -23,16 +27,20 @@ const hero = () => {
             <button className='l-button1'>Get Started &#10140;</button>
             <button className='l-button2'>How It Works &#10140;</button>
           </div>
-        </div>
+        </m.div>
         <div className='hero-right'>
-          <div className='transRectangle'></div>
-          <div className='doctorImg'>
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className='transRectangle'></m.div>
+          <m.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 3 }}
+            className='doctorImg'>
             <Image src={doctor} alt='doctor' className='doctor' />
-          </div>
-          <div className='whiteRectangle'></div>
-          <div className='wavesImg'>
-            <Image src={Waves} alt='waves' className='waves' />
-          </div>
+          </m.div>
         </div>
       </div>
     </>

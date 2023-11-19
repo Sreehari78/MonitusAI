@@ -95,27 +95,3 @@
   width: calc(1.2 * 19.6875rem);
   height: calc(1.2 * 24.625rem);
 }
-
-.whiteRectangle {
-  z-index: 13;
-  position: absolute;
-  top: 22em;
-  right: 22em;
-  width: calc(1.2 * 11.5rem);
-  height: calc(1.2 * 11.9375rem);
-  flex-shrink: 0;
-  border-radius: 1.125rem;
-  background: #fff;
-}
-
-.wavesImg {
-  z-index: 14;
-  position: absolute;
-  top: 24.5em;
-  right: 22em;
-}
-
-.waves {
-  width: calc(1.2 * 11.5rem);
-  height: calc(1.2 * 11.9375rem);
-}
