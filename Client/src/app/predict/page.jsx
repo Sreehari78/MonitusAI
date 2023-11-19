@@ -86,7 +86,7 @@ const page = () => {
 
   // Handle prediction
   const handlePredict = async () => {
-    if (selectedPatient === "" || note === "") return; // Return if no patient is selected or if the note is empty
+    if (selectedPatient === "") return; // Return if no patient is selected
     try {
       setShowDiv(true); // Show the div
       const response = await fetch("http://localhost:5000/get_prediction", {
@@ -129,7 +129,7 @@ const page = () => {
     <div className='flex'>
       <SideBar activeButtonNumber={0} />
       <div className='w-[85vw] h-[100vh] bg-[#f3f8fe] flex flex-col pt-40 px-40 gap-12 '>
-        <Dropbox handleCallback={CallBack} />
+        <Dropbox handleCallback={CallBack} isPatients={true} />
         <TextareaAutosize
           maxRows={10}
           minRows={8}

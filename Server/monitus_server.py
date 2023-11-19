@@ -115,11 +115,15 @@ def reported_adrs():
     return jsonify({"reaction" : "success"})
 
 @app.route("/get_stats", methods=["POST"])
-def get_stats(med_name):
+def get_stats():
     data = request.get_json()
-    med_name= data.get('med_name')
+    med_name= data.get('drug')
+    print(med_name)
     return jsonify({"sideEffects" : my_db.get_side_effects_stats( med_name)})
-    
+
+@app.route("/get_all_medicines", methods=["POST"])
+def get_all_medicines():
+    return jsonify({"medicines" : my_db.get_all_medicines()})
     
 if __name__ == "__main__":
     app.run(debug=True)

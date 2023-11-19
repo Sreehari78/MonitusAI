@@ -1,6 +1,7 @@
 "use client";
 import "./styles/Hero.css";
 import Image from "next/image";
+import Link from "next/link";
 import doctor from "../../public/doctor.png";
 import { motion as m } from "framer-motion";
 
@@ -24,8 +25,14 @@ const hero = () => {
             safety."
           </div>
           <div className='l-buttons'>
-            <button className='l-button1'>Get Started &#10140;</button>
-            <button className='l-button2'>How It Works &#10140;</button>
+            <Link href={"/predict"}>
+              <button className='l-button1'>Get Started &#10140;</button>
+            </Link>
+            <Link
+              href={"https://github.com/Sreehari78/MonitusAI"}
+              target='_blank'>
+              <button className='l-button2'>How It Works &#10140;</button>
+            </Link>
           </div>
         </m.div>
         <div className='hero-right'>

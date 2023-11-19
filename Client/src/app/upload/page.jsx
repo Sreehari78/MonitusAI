@@ -1,15 +1,26 @@
 "use client";
 
 import SideBar from "@/components/SideBar";
-import React, { use } from "react";
 import { Button } from "@mui/material";
 import MyDocument from "@/components/MyDocument";
 import { TextField } from "@mui/material";
+import * as React from "react";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+});
 
 const page = () => {
   // State variable for patient name and stored PDF data
   const [PatientName, setPatientName] = React.useState("");
   const [storedPdfData, setStoredPdfData] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   // Callback function to set stored PDF data
   function CallBack(childData) {
@@ -38,6 +49,7 @@ const page = () => {
         // Check if the request was successful
         if (response.ok) {
           console.log(response);
+          setOpen(true);
         } else {
           console.error("Failed to upload");
         }
@@ -80,6 +92,13 @@ const page = () => {
           }}>
           Upload
         </Button>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            sx={{ width: "100%", backgroundColor: "#008081" }}>
+            Data Uploaded successfully!
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   );

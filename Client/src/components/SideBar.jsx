@@ -27,6 +27,19 @@ const SideBar = (props) => {
         </div>
         <SideButton
           type='contained'
+          {...(activeButton == 3
+            ? ((buttonColorAttributes[0] = "#008081"),
+              (buttonColorAttributes[1] = "#DAF0F0"))
+            : ((buttonColorAttributes[0] = "#DAF0F0"),
+              (buttonColorAttributes[1] = "#6E7191")))}
+          color={buttonColorAttributes[0]}
+          icon={faUpload}
+          title='Upload EHR'
+          link='/upload'
+          textColor={buttonColorAttributes[1]}
+        />
+        <SideButton
+          type='contained'
           {...(activeButton == 0
             ? ((buttonColorAttributes[0] = "#008081"),
               (buttonColorAttributes[1] = "#DAF0F0"))
@@ -40,19 +53,6 @@ const SideBar = (props) => {
         />
         <SideButton
           type='contained'
-          {...(activeButton == 1
-            ? ((buttonColorAttributes[0] = "#008081"),
-              (buttonColorAttributes[1] = "#DAF0F0"))
-            : ((buttonColorAttributes[0] = "#DAF0F0"),
-              (buttonColorAttributes[1] = "#6E7191")))}
-          color={buttonColorAttributes[0]}
-          icon={faPieChart}
-          title='Reports'
-          link='/reports'
-          textColor={buttonColorAttributes[1]}
-        />
-        <SideButton
-          type='contained'
           {...(activeButton == 2
             ? ((buttonColorAttributes[0] = "#008081"),
               (buttonColorAttributes[1] = "#DAF0F0"))
@@ -60,21 +60,21 @@ const SideBar = (props) => {
               (buttonColorAttributes[1] = "#6E7191")))}
           color={buttonColorAttributes[0]}
           icon={faPills}
-          title='ADR Report'
+          title='Report ADR'
           link='/adr'
           textColor={buttonColorAttributes[1]}
         />
         <SideButton
           type='contained'
-          {...(activeButton == 3
+          {...(activeButton == 1
             ? ((buttonColorAttributes[0] = "#008081"),
               (buttonColorAttributes[1] = "#DAF0F0"))
             : ((buttonColorAttributes[0] = "#DAF0F0"),
               (buttonColorAttributes[1] = "#6E7191")))}
           color={buttonColorAttributes[0]}
-          icon={faUpload}
-          title='Upload EHR'
-          link='/upload'
+          icon={faPieChart}
+          title='Stats'
+          link='/reports'
           textColor={buttonColorAttributes[1]}
         />
       </div>

@@ -1,42 +1,120 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
-import theme from "./theme";
 
-const data = [
-  {
-    id: "python",
-    label: "python",
-    value: 86,
-    color: "hsl(167, 70%, 50%)",
+const myTheme = {
+  background: "#f3f8fe",
+  text: {
+    fontSize: 20,
+    fill: "#333333",
+    outlineWidth: 0,
+    outlineColor: "transparent",
   },
-  {
-    id: "c",
-    label: "c",
-    value: 288,
-    color: "hsl(122, 70%, 50%)",
+  axis: {
+    domain: {
+      line: {
+        stroke: "#777777",
+        strokeWidth: 1,
+      },
+    },
+    legend: {
+      text: {
+        fontSize: 12,
+        fill: "#333333",
+        outlineWidth: 0,
+        outlineColor: "transparent",
+      },
+    },
+    ticks: {
+      line: {
+        stroke: "#777777",
+        strokeWidth: 1,
+      },
+      text: {
+        fontSize: 11,
+        fill: "#333333",
+        outlineWidth: 0,
+        outlineColor: "transparent",
+      },
+    },
   },
-  {
-    id: "css",
-    label: "css",
-    value: 366,
-    color: "hsl(126, 70%, 50%)",
+  grid: {
+    line: {
+      stroke: "#dddddd",
+      strokeWidth: 1,
+    },
   },
-  {
-    id: "ruby",
-    label: "ruby",
-    value: 137,
-    color: "hsl(226, 70%, 50%)",
+  legends: {
+    title: {
+      text: {
+        fontSize: 11,
+        fill: "#333333",
+        outlineWidth: 0,
+        outlineColor: "transparent",
+      },
+    },
+    text: {
+      fontSize: 11,
+      fill: "#333333",
+      outlineWidth: 0,
+      outlineColor: "transparent",
+    },
+    ticks: {
+      line: {},
+      text: {
+        fontSize: 10,
+        fill: "#333333",
+        outlineWidth: 0,
+        outlineColor: "transparent",
+      },
+    },
   },
-  {
-    id: "make",
-    label: "make",
-    value: 442,
-    color: "hsl(120, 70%, 50%)",
+  annotations: {
+    text: {
+      fontSize: 13,
+      fill: "#333333",
+      outlineWidth: 2,
+      outlineColor: "#ffffff",
+      outlineOpacity: 1,
+    },
+    link: {
+      stroke: "#000000",
+      strokeWidth: 1,
+      outlineWidth: 2,
+      outlineColor: "#ffffff",
+      outlineOpacity: 1,
+    },
+    outline: {
+      stroke: "#000000",
+      strokeWidth: 2,
+      outlineWidth: 2,
+      outlineColor: "#ffffff",
+      outlineOpacity: 1,
+    },
+    symbol: {
+      fill: "#000000",
+      outlineWidth: 2,
+      outlineColor: "#ffffff",
+      outlineOpacity: 1,
+    },
   },
-];
-const PieChart = () => {
+  tooltip: {
+    container: {
+      background: "#010101",
+      fontSize: 12,
+    },
+    basic: {},
+    chip: {},
+    table: {},
+    tableCell: {},
+    tableCellValue: {},
+  },
+};
+const PieChart = (props) => {
+  const data = props.chartData;
+
   return (
     <ResponsivePie
+      theme={myTheme}
       data={data}
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
@@ -128,6 +206,7 @@ const PieChart = () => {
           id: "lines",
         },
       ]}
+      // motionConfig='wobbly'
       legends={[
         {
           anchor: "bottom",

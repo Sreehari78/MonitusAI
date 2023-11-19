@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
+// import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 const ReactionReport = (props) => {
   const handleDelete = () => {
@@ -27,7 +28,7 @@ const ReactionReport = (props) => {
               variant='body2'
               color='text.secondary'
               onClick={handleDelete}>
-              <CheckIcon style={{ color: "#008081", fontSize: "18px" }} />
+              <CloseIcon style={{ color: "#cc0000", fontSize: "18px" }} />
             </Typography>
           </div>
         </CardContent>

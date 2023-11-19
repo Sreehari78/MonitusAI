@@ -78,7 +78,7 @@ const Features = () => {
         </div>
         <div className='Feature-1'>
           <div className='f-content'>
-            <div className='f-head'>Upload EHR and predict ADR's</div>
+            <div className='f-head'>Upload EHR</div>
             <div className='f-text'>
               <ul>
                 <li>

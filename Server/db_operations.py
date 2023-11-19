@@ -48,9 +48,19 @@ def get_side_effects_stats(med_name):
     medicines_collection = db["medicines"]
     medicine = medicines_collection.find_one({"name": med_name})
     if medicine: 
-        print(medicine['sideEffects'])
-        return medicine['sideEffects']
-    return None
+        formatted_data = []
+        # Iterate through the list and format each element
+        for item in medicine["sideEffects"]:
+            if 'name' in item and 'count' in item:
+                formatted_item = {
+                    'id': item['name'],
+                    'label': item['name'],
+                    'value': item['count']
+                }
+                formatted_data.append(formatted_item)
+        return formatted_data
+    else:
+        return None
 
 def get_all_medicines():
     # Get all medicine details from the 'medicines' collection.
@@ -110,7 +120,7 @@ def add_or_increment_side_effects(patient_name, side_effects):
         #print(medicine)
         if medicine:
             medicine_name = medicine["name"]
-            # Iterate over each side effect in the list
+            # Iterate over each side effect in the list of side effects
             for side_effect in side_effects:
                 side_effect_name = side_effect
                 side_effect_count = 1
@@ -118,6 +128,8 @@ def add_or_increment_side_effects(patient_name, side_effects):
 
                 side_effect_exists = False
                 # Check if the side effect already exists for the medicine
+                print("Medicine")
+                print(medicine)
                 for existing_side_effect in medicine["sideEffects"]:
                     if existing_side_effect["name"] == side_effect_name:
                         # If side effect exists, increment its count
@@ -174,4 +186,4 @@ def get_adr_list(name):
             return(combined_list)
         
     else:
-        return(f"No patient found with the name: {name}")
+        return(f"No patient found with the name: {name}")
