@@ -64,7 +64,11 @@ The Predict page serves multiple functions:
 
 - **Predict Drug-drug interaction**
 
+  - From ONCHigh and DrugBank dataset
+
 - **Predict ADRs (Adverse Drug Reactions):**
+
+  - Based on FAERS dataset for ADR reports and based on patients medical history
 
 - **Predict the Severity of ADRs:**
   - Estimate the severity levels of Adverse Drug Reactions.
@@ -73,9 +77,8 @@ The Predict page serves multiple functions:
 
 The Report ADRs page is designed to:
 
-- **Report ADRs in Observed ADRs:**
-
-- **Report Observed ADRs in Patients:**
+- **Report symptoms or Observed ADRs:**
+  - Can be used to report symtoms obsereved by a patient
 
 ### Upload Electronic Health Record
 
