@@ -1,59 +1,36 @@
-import pymongo
+from pymongo import MongoClient
 
-def add_or_increment_side_effects(medicine_name, side_effects):
-    client = pymongo.MongoClient("mongodb://localhost:27017/")   
-    db = client["monitus_db"]  # Use your actual database name here
-    medicines_collection = db["medicines"]  # Use your actual collection name here
+def get_adr(name):
+    allreactions=""
+    client = MongoClient('mongodb://localhost:27017')
+    db = client['monitus_db']
+    patient_collection = db['patients']  # Replace 'patients' with your collection name
+    patient = patient_collection.find_one({"name": name})
+    # Find all documents where possible adverse drug reactions exist
+    if patient:
+        print(f"Patient: {patient['name']}")
+        # possible_reactions = patient['possible_adverse_drug_reactions']
+        # print("Possible Adverse Drug Reactions:")
+        # for reaction in possible_reactions:
+        #     print(f"- {reaction}")
+        #     allreactions=allreaction
+        possible_reactions = patient['possible_adverse_drug_reactions']
+        if possible_reactions:  # Check if reactions exist
+            combined_list = []
 
-    # Check if the medicine exists
-    medicine = medicines_collection.find_one({"name": medicine_name})
-
-    if medicine:
-        # Iterate over each side effect in the list
-        for side_effect in side_effects:
-            side_effect_name = side_effect["name"]
-            side_effect_count = side_effect["count"]
-
-            side_effect_exists = False
-            # Check if the side effect already exists for the medicine
-            for existing_side_effect in medicine["sideEffects"]:
-                if existing_side_effect["name"] == side_effect_name:
-                    # If side effect exists, increment its count
-                    medicines_collection.update_one(
-                        {"name": medicine_name, "sideEffects.name": side_effect_name},
-                        {"$inc": {"sideEffects.$.count": side_effect_count}}
-                    )
-                    side_effect_exists = True
-                    print(f"Side effect '{side_effect_name}' count incremented for medicine '{medicine_name}'")
-                    break
-            
-            # If side effect doesn't exist, add it to the medicine
-            if not side_effect_exists:
-                medicines_collection.update_one(
-                    {"name": medicine_name},
-                    {"$push": {
-                        "sideEffects": {
-                            "name": side_effect_name,
-                            "count": side_effect_count
-                        }
-                    }}
-                )
-                print(f"Side effect '{side_effect_name}' added for medicine '{medicine_name}'")
-
+            for reaction in possible_reactions:
+                combined_list.extend(reaction.split(', '))  # Split the first reaction by comma and space
+            print(combined_list)
+        
     else:
-        # If medicine doesn't exist, create a new medicine entry with the side effects
-        new_medicine = {
-            "name": medicine_name,
-            "sideEffects": side_effects
-        }
-        medicines_collection.insert_one(new_medicine)
-        print(f"Medicine '{medicine_name}' with side effects added")
+        print(f"No patient found with the name: {name}")
 
-# Example usage:
-side_effects_list = [
-    {"name": "Nausea", "count": 1},
-    {"name": "Headache", "count": 1},
-    {"name": "Dizziness", "count": 1}
-]
+def main():
+    client = MongoClient('mongodb://localhost:27017')
+    database = client['monitus_db']  # Replace 'monitus_db' with your database name
 
-add_or_increment_side_effects("Paracetamol", side_effects_list)
+    # Find and display all possible adverse drug reactions for patients
+    get_adr("Pranav New")
+
+if __name__ == "__main__":
+    main()
