@@ -1,5 +1,7 @@
 # MONITUS AI - Adverse Drug Reaction Prediction Tool
 
+![Banner Image](banner.jpg)
+
 MONITUS AI is an AI-powered tool designed to predict Adverse Drug Reactions (ADRs). This tool not only predicts ADRs but also provides a mechanism to store and collect data related to these reactions, aiding in data collection and database management.
 
 ## Table of Contents
@@ -22,49 +24,91 @@ Follow these steps to install MONITUS AI on your local machine:
 
 1. Clone the MONITUS AI repository to your local machine:
 
-    ```bash
-    git clone https://github.com/your-username/MONITUS-AI.git
-    ```
+   ```bash
+   git clone https://github.com/Sreehari78/MonitusAI.git
+   ```
 
 2. Navigate to the project directory:
 
-    ```bash
-    cd MONITUS-AI
-    ```
+   ```bash
+   cd MONITUS-AI
+   ```
 
 3. Install the required dependencies. It is recommended to set up a virtual environment before installing dependencies:
 
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use 'venv\Scripts\activate'
-    pip install -r requirements.txt
-    ```
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use 'venv\Scripts\activate'
+   pip install -r requirements.txt
+   ```
 
 4. Set up the database:
 
-    ```bash
-    python manage.py migrate
-    ```
+   ```bash
+   python manage.py migrate
+   ```
 
 5. Run the development server:
 
-    ```bash
-    python manage.py runserver
-    ```
+   ```bash
+   python monitus_server.py runserver
+   ```
 
-6. Open your web browser and navigate to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) to access MONITUS AI.
+6. Open your web browser and navigate to [http://127.0.0.1:3000/](http://127.0.0.1:3000/) to access MONITUS AI.
 
 ## Usage
 
-1. Visit the MONITUS AI web application.
+### Predict Page
 
-2. Navigate to the ADR prediction section.
+The Predict page serves multiple functions:
 
-3. Enter the relevant drug information.
+- **Give Prescription:**
 
-4. MONITUS AI will provide predictions for potential Adverse Drug Reactions.
+  - Provide prescriptions for medications.
 
-For detailed instructions on using MONITUS AI, refer to the [User Guide](docs/user-guide.md).
+- **Predict ADRs (Adverse Drug Reactions):**
+
+  - Utilize AI algorithms to predict potential adverse reactions to prescribed drugs.
+
+- **Predict Possible Drug-Drug Interactions:**
+
+  - Evaluate and predict possible interactions between different prescribed drugs.
+
+- **Predict the Severity of ADRs:**
+  - Estimate the severity levels of Adverse Drug Reactions.
+
+### Report ADRs Page
+
+The Report ADRs page is designed to:
+
+- **Report ADRs in Observed ADRs:**
+
+  - Record and report any observed Adverse Drug Reactions.
+
+- **Report Observed ADRs in Patients:**
+  - Document and report specific Adverse Drug Reactions observed in patients.
+
+### Upload Electronic Health Record
+
+The Upload Electronic Health Record feature allows you to:
+
+- **Give Prescription and Predict ADRs:**
+
+  - Provide prescriptions while simultaneously predicting potential Adverse Drug Reactions.
+
+- **Predict Possible Drug-Drug Interactions:**
+
+  - Assess and predict possible interactions between different prescribed drugs.
+
+- **Predict the Severity of ADRs:**
+  - Estimate the severity levels of Adverse Drug Reactions.
+
+### ADR Report Page
+
+The ADR Report page provides:
+
+- **Visual Representation of Observed Symptoms:**
+  - Offers a visual representation of all observed symptoms in patients who have been prescribed a particular medicine.
 
 ## Contributing
 
@@ -88,6 +132,11 @@ We would like to acknowledge the developers and contributors who have helped sha
 
 ## Contact
 
-For any inquiries or assistance, please contact us at [Your Email Address].
+For any inquiries or assistance, please contact us at:
 
-Feel free to customize the sections based on additional details specific to your project. This README provides a basic structure to get you started.
+- [Pranav S](mailto:pranavs13@gmail.com)
+- [Sreehari s](mailto:sreehari1672000@gmail.com)
+- [Akhil Vettical](mailto:akhilbinoyvettical@gmail.com)
+- [Richard Joseph](mailto:richardj815165@gmail.com)
+
+Feel free to reach out to any of the team members with your questions or feedback.
