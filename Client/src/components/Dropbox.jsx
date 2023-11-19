@@ -37,8 +37,8 @@ export default function Dropbox(props) {
     }
   }, []);
 
-  // Effect hook to fetch patients on component mount
   useEffect(() => {
+    // Fetch patients when the component is mounted
     fetchPatients();
   }, []);
 
@@ -59,6 +59,7 @@ export default function Dropbox(props) {
             label='Patient'
             color='success'
             variant='filled'
+            key={params.id}
           />
         )}
       />
