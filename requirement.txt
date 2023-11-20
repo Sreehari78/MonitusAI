@@ -1,4 +1,6 @@
 pymongo
+flask
+flask-cors
 PyMuPDF
 openai
 requests
