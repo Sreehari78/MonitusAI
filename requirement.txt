@@ -1,6 +1,7 @@
 pymongo
 flask
 flask-cors
+load_dotenv
 PyMuPDF
 openai
 requests
