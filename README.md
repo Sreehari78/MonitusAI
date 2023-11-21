@@ -130,7 +130,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
-We would like to acknowledge the developers and contributors who have helped shape MONITUS AI. Special thanks to [List of contributors, libraries, or resources you want to acknowledge].
+We would like to acknowledge the developers and contributors who have helped shape MONITUS AI.
 
 ## Contact
 
