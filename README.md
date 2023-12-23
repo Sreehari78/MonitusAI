@@ -46,7 +46,7 @@ Follow these steps to install MONITUS AI on your local machine:
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows, use 'venv\Scripts\activate'
-   pip install -r requirements.txt
+   pip install -r requirement.txt
    ```
 
 4. Set up the database:
