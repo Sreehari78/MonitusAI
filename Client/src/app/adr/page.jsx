@@ -171,7 +171,7 @@ const page = () => {
                 </div>
               ) : (
                 <Fab
-                  style={{ backgroundColor: "#008081", color: "#FFFFFF" }}
+                  style={{ backgroundColor: "#008080", color: "#FFFFFF" }}
                   aria-label='add'
                   onClick={toggleTextField}>
                   <AddIcon />
